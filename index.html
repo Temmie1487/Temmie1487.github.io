@@ -182,10 +182,10 @@ button{font-family:inherit}
   margin:0 0 14px;font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
   color:var(--on-surface-variant);
 }
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.stat{background:var(--surface-2);border:1px solid var(--outline-variant);border-radius:var(--r-m);padding:16px 18px;text-align:center}
-.stat .n{font-size:26px;font-weight:700;color:var(--primary);letter-spacing:-.02em}
-.stat .l{font-size:11.5px;font-weight:600;letter-spacing:.1em;color:var(--on-surface-variant);margin-top:2px}
+.stats{display:grid;gap:10px}
+.stat{display:flex;align-items:baseline;justify-content:space-between;gap:14px;background:var(--surface-2);border:1px solid var(--outline-variant);border-radius:var(--r-m);padding:13px 18px;text-align:left}
+.stat .n{font-size:22px;font-weight:700;color:var(--primary);letter-spacing:-.02em}
+.stat .l{font-size:12.5px;font-weight:600;letter-spacing:.06em;color:var(--on-surface-variant)}
 .tl{display:grid;gap:0}
 .tl-item{display:flex;align-items:baseline;gap:14px;padding:12px 0;border-bottom:1px solid var(--outline-variant);font-size:14.5px}
 .tl-item:last-child{border-bottom:none}
@@ -335,7 +335,7 @@ button{font-family:inherit}
 
 /* SECTION: footer + toast + motion */
 footer{padding:34px 0 60px}
-footer .wrap{display:flex;flex-wrap:wrap;gap:14px;align-items:baseline;justify-content:space-between;font-size:12.5px;color:var(--on-surface-variant)}
+footer .wrap{display:flex;justify-content:center;font-size:12.5px;letter-spacing:.03em;color:var(--on-surface-variant)}
 #toast{
   position:fixed;left:50%;bottom:32px;transform:translate(-50%,24px);
   background:var(--on-surface);color:var(--surface);
@@ -366,7 +366,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:14px;align-items:baseline;justify-c
   .segmented{width:100%}
   .segmented .seg{flex:1;padding:10px 8px;font-size:12px}
   .stats{gap:8px}
-  .stat{padding:12px 8px}
+  .stat{padding:11px 14px}
   .stat .n{font-size:20px}
   .lang-btn{padding:0 10px;font-size:12px}
 }
@@ -409,7 +409,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:14px;align-items:baseline;justify-c
 <section class="hero" id="top">
   <div class="wrap hero-grid">
     <div>
-      <span class="pill"><span class="dot"></span><span data-i18n="hero.pill">高中在读 · 什么都会一点 · 2026 · 10</span></span>
+      <span class="pill"><span class="dot"></span><span data-i18n="hero.pill">高中在读 · 什么都会一点</span></span>
       <h1>Temmie<em>1487</em></h1>
       <p class="sub">Student Developer</p>
       <p class="lede" data-i18n="hero.lede">写 C# 桌面应用，用 Godot 做游戏，也在 ESP32 上折腾硬件——<b>什么都会一点</b>，有趣就想上手。我的世界与彩虹六号常驻玩家。</p>
@@ -529,8 +529,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:14px;align-items:baseline;justify-c
 
 <footer>
   <div class="wrap">
-    <span data-i18n="footer.copy">© 2026 Temmie1487 · 单文件静态页 · 无框架无依赖</span>
-    <span>Material Design 3 inspired · GitHub Pages</span>
+    <span>Copyright © 2026 Temmie1487. All rights reserved.</span>
   </div>
 </footer>
 
@@ -595,7 +594,7 @@ const SOCIALS = [
 const T = {
   zh:{
     "nav.about":"关于","nav.skills":"能力","nav.works":"作品","nav.contact":"联系",
-    "hero.pill":"高中在读 · 什么都会一点 · 2026 · 10",
+    "hero.pill":"高中在读 · 什么都会一点",
     "hero.lede":'写 C# 桌面应用，用 Godot 做游戏，也在 ESP32 上折腾硬件——<b>什么都会一点</b>，有趣就想上手。我的世界与彩虹六号常驻玩家。',
     "hero.ctaWorks":"查看作品","hero.ctaContact":"联系我",
     "profile.title":"学生开发者 / 高中生","profile.k1":"平台","profile.k2":"方向","profile.v2":"桌面应用 · 嵌入式 · 游戏","profile.k3":"语言","profile.k4":"爱好","profile.v4":"摄影 · 后期 · 开发","profile.badge":"Since 2024 · GitHub",
@@ -610,12 +609,11 @@ const T = {
     "works.role":"我的角色","works.did":"做了什么","works.result":"结果","works.link":"仓库链接",
     "works.more":"展开详情 ↓","works.less":"收起详情 ↑",
     "contact.title":"联系","contact.pill":"技术交流与闲聊都欢迎","contact.desc":"合作、请教、闲聊都欢迎，看到就会回。","contact.sendMail":"发邮件","contact.emailTitle":"邮件","contact.copy":"复制",
-    "footer.copy":"© 2026 Temmie1487 · 单文件静态页 · 无框架无依赖",
     "f.copied":"已复制","f.fail":"复制失败，请手动选中文字","f.dark":"已切换到深色","f.light":"已切换到浅色","f.lang":"已切换到中文","f.mail":"邮箱","f.qq":"QQ"
   },
   en:{
     "nav.about":"About","nav.skills":"Skills","nav.works":"Works","nav.contact":"Contact",
-    "hero.pill":"High schooler · A bit of everything · 2026 · 10",
+    "hero.pill":"High schooler · A bit of everything",
     "hero.lede":'I build C# desktop apps, make games in Godot, and tinker with ESP32 hardware. <b>A bit of everything</b> — if it\u2019s fun, I\u2019ll try it. Regular Minecraft & Rainbow Six player.',
     "hero.ctaWorks":"See works","hero.ctaContact":"Contact me",
     "profile.title":"Student developer","profile.k1":"Platform","profile.k2":"Focus","profile.v2":"Desktop · Embedded · Games","profile.k3":"Languages","profile.k4":"Interests","profile.v4":"Photo · Post · Dev","profile.badge":"Since 2024 · GitHub",
@@ -630,7 +628,6 @@ const T = {
     "works.role":"My role","works.did":"What I did","works.result":"Result","works.link":"Repository",
     "works.more":"Show details ↓","works.less":"Hide details ↑",
     "contact.title":"Contact","contact.pill":"Talk tech or just chat","contact.desc":"Collabs, questions, random chat — I reply when I see it.","contact.sendMail":"Send email","contact.emailTitle":"Email","contact.copy":"Copy",
-    "footer.copy":"© 2026 Temmie1487 · Single-file page · No frameworks",
     "f.copied":"copied","f.fail":"Copy failed, select the text manually","f.dark":"Dark mode on","f.light":"Light mode on","f.lang":"Switched to English","f.mail":"Email","f.qq":"QQ"
   }
 };
