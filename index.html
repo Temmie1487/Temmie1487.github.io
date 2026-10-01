@@ -248,7 +248,7 @@ button{font-family:inherit}
 .segmented .seg:hover{background:var(--surface-2)}
 .segmented .seg[aria-pressed="true"]{background:var(--secondary-container);color:var(--on-secondary-container);font-weight:700}
 .count{margin-left:auto;font-family:var(--mono);font-size:12.5px;color:var(--on-surface-variant)}
-.works{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:20px}
+.works{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:20px;align-items:start}
 .work{
   background:var(--surface-1);border:1px solid var(--outline-variant);border-radius:var(--r-l);
   padding:24px 26px;display:flex;flex-direction:column;
@@ -275,23 +275,19 @@ button{font-family:inherit}
   font-size:11.5px;font-weight:600;padding:4px 12px;border-radius:999px;
   background:var(--surface-3);color:var(--on-surface-variant);
 }
-.work-more{
-  margin-top:16px;align-self:flex-start;font-size:13px;font-weight:600;color:var(--primary);
-  background:transparent;border:none;cursor:pointer;padding:8px 14px;border-radius:999px;
-  transition:background-color .2s;
+.work-points{margin:14px 0 0;padding:0;list-style:none;display:grid;gap:7px}
+.work-points li{position:relative;padding-left:16px;font-size:13.5px;line-height:1.55;color:var(--on-surface)}
+.work-points li::before{content:"";position:absolute;left:2px;top:.62em;width:5px;height:5px;border-radius:50%;background:var(--primary)}
+.work-foot{margin-top:auto;padding-top:18px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.repo-btn{
+  display:inline-flex;align-items:center;gap:8px;text-decoration:none;
+  font-size:13px;font-weight:600;color:var(--primary);
+  border:1px solid var(--outline);border-radius:999px;padding:8px 16px;
+  transition:background-color .2s,border-color .2s;
 }
-.work-more:hover{background:var(--surface-2)}
-.work-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .34s ease}
-.work.open .work-body{grid-template-rows:1fr}
-.work-body > div{overflow:hidden}
-.work-body dl{
-  margin:16px 0 0;padding:18px 20px;background:var(--surface-2);
-  border-radius:var(--r-m);font-size:14px;line-height:1.6;
-}
-.work-body dt{font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--primary);margin-top:12px}
-.work-body dt:first-child{margin-top:0}
-.work-body dd{margin:3px 0 0;color:var(--on-surface)}
-.work-link{display:inline-block;margin-top:4px;color:var(--primary);font-weight:600;word-break:break-all}
+.repo-btn svg{width:16px;height:16px;display:block}
+.repo-btn:hover{background:var(--surface-2);border-color:var(--primary)}
+.work-meta{font-family:var(--mono);font-size:11.5px;color:var(--on-surface-variant);text-align:right}
 .empty{
   display:none;grid-column:1/-1;text-align:center;padding:56px 20px;
   background:var(--surface-1);border:1px dashed var(--outline);border-radius:var(--r-xl);
@@ -378,9 +374,8 @@ footer .wrap{display:flex;justify-content:center;font-size:12.5px;letter-spacing
 }
 /* SECTION: print */
 @media print{
-  .appbar,.icon-btn,.lang-btn,.work-more,.mini-btn,.contact-actions{display:none!important}
+  .appbar,.icon-btn,.lang-btn,.mini-btn,.contact-actions{display:none!important}
   body{background:#fff;color:#000}
-  .work-body{grid-template-rows:1fr}
   .stagger{opacity:1;transform:none}
   .sec{padding:16px 0;break-inside:avoid}
 }
@@ -409,7 +404,7 @@ footer .wrap{display:flex;justify-content:center;font-size:12.5px;letter-spacing
 <section class="hero" id="top">
   <div class="wrap hero-grid">
     <div>
-      <span class="pill"><span class="dot"></span><span data-i18n="hero.pill">高中在读 · 什么都会一点</span></span>
+      <span class="pill"><span class="dot"></span><span data-i18n="hero.pill">Temmie什么都会一点</span></span>
       <h1>Temmie<em>1487</em></h1>
       <p class="sub">Student Developer</p>
       <p class="lede" data-i18n="hero.lede">写 C# 桌面应用，用 Godot 做游戏，也在 ESP32 上折腾硬件——<b>什么都会一点</b>，有趣就想上手。我的世界与彩虹六号常驻玩家。</p>
@@ -463,6 +458,7 @@ footer .wrap{display:flex;justify-content:center;font-size:12.5px;letter-spacing
             <div class="tl-item"><span class="tl-yr">2026.08</span><span class="tl-tx" data-i18n="about.tl1">nfc-door-lock · ESP32 智能门禁</span></div>
             <div class="tl-item"><span class="tl-yr">2026.02</span><span class="tl-tx" data-i18n="about.tl2">WinTools · WPF 系统管理工具开源</span></div>
             <div class="tl-item"><span class="tl-yr">2024.07</span><span class="tl-tx" data-i18n="about.tl3">注册 GitHub，开始公开写代码</span></div>
+            <div class="tl-item"><span class="tl-yr">2021.02</span><span class="tl-tx" data-i18n="about.tl4">开始在 B站 投稿做 UP 主，现为 Lv6 老资历</span></div>
           </div>
         </div>
       </aside>
@@ -543,10 +539,10 @@ const MAIL = "MIB12345678902020@outlook.com";
 
 const SKILLS = [
   {group:{zh:"编程语言",en:"Languages"},items:[
-    {name:"C#",desc:{zh:"主力语言。用 WPF + WPF-UI 独立开发了 WinTools，熟悉 .NET 9 生态与桌面应用架构。",en:"My main language. Built WinTools solo with WPF + WPF-UI on .NET 9."},meta:{zh:"WinTools · WPF-UI",en:"WinTools · WPF-UI"}},
-    {name:"GDScript",desc:{zh:"Godot 引擎的脚本语言，用来写游戏逻辑与玩法原型。",en:"Godot's scripting language, used for gameplay logic and prototypes."},meta:{zh:"Godot Engine",en:"Godot Engine"}},
-    {name:"C++",desc:{zh:"嵌入式方向：为 ESP32 编写 NFC 门禁固件，处理状态机与传感器消抖。",en:"Embedded side: ESP32 firmware for the NFC lock — state machines and debounce."},meta:{zh:"nfc-door-lock",en:"nfc-door-lock"}},
-    {name:"HTML · CSS · JS",desc:{zh:"你现在看的这个页面就是手写成果：单文件、双语、零依赖。",en:"This very page is the proof: single file, bilingual, zero dependencies."},meta:{zh:"本页面",en:"This page"}}
+    {name:"C#",desc:{zh:"主力语言，走 .NET 9 生态。独立完成 WinTools 整套开发：WPF 界面分层、WPF-UI 组件与 Mica 云母效果、异步处理与资源释放都按能长期维护的标准写。",en:"Main language, .NET 9 ecosystem. Built WinTools end to end: layered WPF UI, WPF-UI components with Mica effects, async and disposal written to a maintainable standard."},meta:{zh:"WinTools · C# 占仓库 98.2%",en:"WinTools · 98.2% of repo"}},
+    {name:"GDScript",desc:{zh:"Godot 引擎的脚本语言。用来搭玩法逻辑、验证原型：先让机制跑通，再谈打磨。",en:"Godot's scripting language. Used for gameplay logic and prototypes — make the mechanic run first, polish after."},meta:{zh:"Godot Engine",en:"Godot Engine"}},
+    {name:"C++",desc:{zh:"嵌入式方向。为 ESP32 手写 NFC 门禁固件：PN532 通信、状态机调度、传感器消抖与安全超时。",en:"Embedded side. Hand-written ESP32 firmware for the NFC lock: PN532 comms, state-machine scheduling, debounce and safety timeout."},meta:{zh:"nfc-door-lock",en:"nfc-door-lock"}},
+    {name:"HTML · CSS · JS",desc:{zh:"你现在看的这一页就是成果本身：单文件零依赖，双语、主题、滚动导航全部手写，没有一行框架代码。",en:"This very page is the proof: one file, zero dependencies — bilingual, theming and scroll-spy all hand-written, no framework."},meta:{zh:"本页面",en:"This page"}}
   ]},
   {group:{zh:"兴趣爱好（不完全）",en:"Hobbies (incomplete list)"},items:[
     {name:{zh:"摄影",en:"Photography"},desc:{zh:"喜欢拍照，记录光影和日常。",en:"Photography — light and everyday scenes."},meta:{zh:"相机",en:"Camera"}},
@@ -565,16 +561,22 @@ const WORKS = [
   {no:"01",title:"WinTools",cat:{zh:".NET 桌面",en:"Desktop"},catKey:"desktop",year:"2026",
    sum:{zh:"Windows 系统管理工具：WPF + WPF-UI 开发，Fluent Design 风格与 Mica 背景。",en:"A Windows system manager built with WPF + WPF-UI, Fluent design with Mica background."},
    tech:[".NET 9","WPF","WPF-UI","Fluent","Apache-2.0"],
-   role:{zh:"独立设计与开发",en:"Solo design & development"},
-   did:{zh:"包含仪表盘、进程、服务、性能、磁盘、网络、应用、设备、启动项、环境变量、用户、电源共 12 个管理模块。",en:"12 modules: dashboard, processes, services, performance, disk, network, apps, devices, startup, env vars, users, power."},
-   result:{zh:"Apache-2.0 开源，2 stars · 1 fork。",en:"Open-sourced under Apache-2.0, 2 stars · 1 fork."},
+   details:[
+     {zh:"12 个管理模块覆盖日常运维：进程、服务、性能、磁盘、网络、启动项，直到用户与电源。",en:"12 modules cover daily ops: processes, services, performance, disk, network, startup, users and power."},
+     {zh:"Fluent Design 视觉配合 Mica 云母背景，与 Windows 11 原生观感保持一致。",en:"Fluent Design with a Mica backdrop, matching the native Windows 11 look."},
+     {zh:".NET 9 + WPF-UI 3.1 实现，C# 占 98.2%，Apache-2.0 协议开源。",en:"Built on .NET 9 + WPF-UI 3.1, 98.2% C#, open-sourced under Apache-2.0."}
+   ],
+   meta:{zh:"Apache-2.0 · 2★ · C# 98%",en:"Apache-2.0 · 2★ · C# 98%"},
    url:"https://github.com/Temmie1487/WinTools"},
   {no:"02",title:"nfc-door-lock",cat:{zh:"嵌入式",en:"Embedded"},catKey:"embedded",year:"2026",
    sum:{zh:"基于 ESP32 的智能门禁：NFC 刷卡开门、按钮开门、门磁自动上锁。",en:"ESP32 smart door lock: NFC card unlock, button unlock, auto-lock on door sensor."},
    tech:["ESP32","C++","PN532 (HSU)","Relay","State machine"],
-   role:{zh:"独立设计与实现",en:"Solo design & implementation"},
-   did:{zh:"PN532 读卡授权、继电器控制电磁锁，具备状态机管理、安全超时与传感器消抖。",en:"PN532 card auth, relay-driven electromagnetic lock, with state machine, safety timeout and sensor debounce."},
-   result:{zh:"完整方案开源，README 记录了硬件接线与逻辑。",en:"Fully documented and open source."},
+   details:[
+     {zh:"三种开门方式：NFC 卡片授权、物理按钮，配合门磁触发的自动上锁。",en:"Three ways in: NFC card auth, a physical button, plus auto-lock triggered by the door sensor."},
+     {zh:"PN532 跑在 HSU 串口模式，继电器驱动电磁锁；状态机统一管理，带安全超时与传感器消抖。",en:"PN532 on HSU serial, relay-driven lock; a state machine with safety timeout and sensor debounce keeps it predictable."},
+     {zh:"硬件接线与逻辑在 README 里完整记录，照着装即可复现。",en:"Wiring and logic fully documented in the README — rebuildable from scratch."}
+   ],
+   meta:{zh:"C++ · ESP32 · 1★",en:"C++ · ESP32 · 1★"},
    url:"https://github.com/Temmie1487/nfc-door-lock"}
 ];
 
@@ -584,7 +586,7 @@ const SOCIALS = [
    icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.4c-4.1 0-7.4 3.3-7.4 7.4 0 3.3 2.1 6 5.1 7 .4.1.5-.2.5-.4v-1.5c-2.1.5-2.5-1-2.5-1-.4-.9-.8-1.1-.8-1.1-.7-.5.1-.5.1-.5.8.1 1.2.8 1.2.8.7 1.2 1.9.8 2.4.7.1-.5.3-.9.5-1.1-1.7-.2-3.5-.9-3.5-3.9 0-.9.3-1.6.8-2.1-.1-.2-.4-1 .1-2.1 0 0 .6-.2 2.1.8.6-.2 1.2-.2 1.9-.2.6 0 1.3.1 1.9.2 1.4-1 2.1-.8 2.1-.8.4 1.1.2 1.9.1 2.1.5.5.8 1.2.8 2.1 0 3-1.8 3.7-3.5 3.9.3.2.5.7.5 1.3v1.9c0 .3.2.5.5.4 3-1 5.1-3.7 5.1-7 0-4.1-3.3-7.4-7.4-7.4Z"/></svg>'},
   {net:"X",handle:"@Temmie786986",url:"https://x.com/Temmie786986",
    icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M5.5 5.5 18.5 18.5"/><path d="M18.5 5.5 5.5 18.5"/></svg>'},
-  {net:"Bilibili",handle:"space.bilibili.com/1687580392",url:"https://space.bilibili.com/1687580392",
+  {net:"Bilibili",handle:"UID 1687580392",url:"https://space.bilibili.com/1687580392",
    icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="8" width="18" height="12" rx="3.5"/><path d="M7.5 8 5 4.5"/><path d="M16.5 8 19 4.5"/><path d="M9.3 12v1.8"/><path d="M14.7 12v1.8"/></svg>'},
   {net:"QQ",handle:"3361975291",copy:"3361975291",
    icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4.5c-3.3 0-5.6 2.6-5.6 6.1 0 1.3-.4 2.4-1 3.2-.6 1.1-.1 1.9.8 1.5.6-.3 1.3-.5 1.8-.5.8 1.6 2.3 2.5 4 2.5s3.2-.9 4-2.5c.5 0 1.2.2 1.8.5.9.4 1.4-.4.8-1.5-.6-.8-1-1.9-1-3.2 0-3.5-2.3-6.1-5.6-6.1Z"/><circle cx="9.8" cy="10" r=".7" fill="currentColor" stroke="none"/><circle cx="14.2" cy="10" r=".7" fill="currentColor" stroke="none"/><path d="M10.4 12.6h3.2l-1.6 1.8Z" fill="currentColor" stroke="none"/></svg>'}
@@ -594,7 +596,7 @@ const SOCIALS = [
 const T = {
   zh:{
     "nav.about":"关于","nav.skills":"能力","nav.works":"作品","nav.contact":"联系",
-    "hero.pill":"高中在读 · 什么都会一点",
+    "hero.pill":"Temmie什么都会一点",
     "hero.lede":'写 C# 桌面应用，用 Godot 做游戏，也在 ESP32 上折腾硬件——<b>什么都会一点</b>，有趣就想上手。我的世界与彩虹六号常驻玩家。',
     "hero.ctaWorks":"查看作品","hero.ctaContact":"联系我",
     "profile.title":"学生开发者 / 高中生","profile.k1":"平台","profile.k2":"方向","profile.v2":"桌面应用 · 嵌入式 · 游戏","profile.k3":"语言","profile.k4":"爱好","profile.v4":"摄影 · 后期 · 开发","profile.badge":"Since 2024 · GitHub",
@@ -603,17 +605,16 @@ const T = {
     "about.p2":"摄影和影像后期是我的日常产出，折腾电脑算低血压治疗方式；闲下来一般泡在《我的世界》或者《彩虹六号》里。",
     "about.p3":"学习路径很直接：感兴趣 → 查资料 → 不会就问AI → 做出来。WinTools 和 nfc-door-lock 都是这么完成的，代码全在 GitHub 上，点作品里的链接就能看。",
     "about.statsTitle":"数据一览","about.s1":"公开仓库","about.s2":"Stars","about.s3":"加入 GitHub",
-    "about.tlTitle":"经历","about.tl1":"nfc-door-lock · ESP32 智能门禁","about.tl2":"WinTools · WPF 系统管理工具开源","about.tl3":"注册 GitHub，开始公开写代码",
+    "about.tlTitle":"经历","about.tl1":"nfc-door-lock · ESP32 智能门禁","about.tl2":"WinTools · WPF 系统管理工具开源","about.tl3":"注册 GitHub，开始公开写代码","about.tl4":"开始在 B站 投稿做 UP 主，现为 Lv6 老资历",
     "skills.title":"能力","skills.hint":"点选任一项","skills.detailTitle":"能力说明","skills.detailBody":"这里展开该项的具体说明，以及我在哪些项目里用过它。",
     "works.title":"作品集","works.empty":"这一栏目下暂时没有收录","works.reset":"查看全部",
-    "works.role":"我的角色","works.did":"做了什么","works.result":"结果","works.link":"仓库链接",
-    "works.more":"展开详情 ↓","works.less":"收起详情 ↑",
+    "works.repoBtn":"查看仓库",
     "contact.title":"联系","contact.pill":"技术交流与闲聊都欢迎","contact.desc":"合作、请教、闲聊都欢迎，看到就会回。","contact.sendMail":"发邮件","contact.emailTitle":"邮件","contact.copy":"复制",
     "f.copied":"已复制","f.fail":"复制失败，请手动选中文字","f.dark":"已切换到深色","f.light":"已切换到浅色","f.lang":"已切换到中文","f.mail":"邮箱","f.qq":"QQ"
   },
   en:{
     "nav.about":"About","nav.skills":"Skills","nav.works":"Works","nav.contact":"Contact",
-    "hero.pill":"High schooler · A bit of everything",
+    "hero.pill":"Temmie does a bit of everything",
     "hero.lede":'I build C# desktop apps, make games in Godot, and tinker with ESP32 hardware. <b>A bit of everything</b> — if it\u2019s fun, I\u2019ll try it. Regular Minecraft & Rainbow Six player.',
     "hero.ctaWorks":"See works","hero.ctaContact":"Contact me",
     "profile.title":"Student developer","profile.k1":"Platform","profile.k2":"Focus","profile.v2":"Desktop · Embedded · Games","profile.k3":"Languages","profile.k4":"Interests","profile.v4":"Photo · Post · Dev","profile.badge":"Since 2024 · GitHub",
@@ -622,11 +623,10 @@ const T = {
     "about.p2":"Photography and video post-production are my usual output; tinkering with PCs doubles as low-blood-pressure therapy. Free evenings go to Minecraft or Rainbow Six.",
     "about.p3":"My learning loop is simple: curious → search → ask AI when stuck → build. WinTools and nfc-door-lock both shipped that way — the code is on GitHub, one click from the Works section.",
     "about.statsTitle":"At a glance","about.s1":"Public repos","about.s2":"Stars","about.s3":"Joined GitHub",
-    "about.tlTitle":"Timeline","about.tl1":"nfc-door-lock · ESP32 smart lock","about.tl2":"WinTools · WPF system manager open-sourced","about.tl3":"Joined GitHub, started coding in public",
+    "about.tlTitle":"Timeline","about.tl1":"nfc-door-lock · ESP32 smart lock","about.tl2":"WinTools · WPF system manager open-sourced","about.tl3":"Joined GitHub, started coding in public","about.tl4":"Started posting on Bilibili as a creator, now a Lv6 veteran",
     "skills.title":"Skills","skills.hint":"Pick any skill","skills.detailTitle":"Details","skills.detailBody":"Each skill expands here, with the projects where I actually used it.",
     "works.title":"Works","works.empty":"Nothing in this category yet","works.reset":"Show all",
-    "works.role":"My role","works.did":"What I did","works.result":"Result","works.link":"Repository",
-    "works.more":"Show details ↓","works.less":"Hide details ↑",
+    "works.repoBtn":"View repo",
     "contact.title":"Contact","contact.pill":"Talk tech or just chat","contact.desc":"Collabs, questions, random chat — I reply when I see it.","contact.sendMail":"Send email","contact.emailTitle":"Email","contact.copy":"Copy",
     "f.copied":"copied","f.fail":"Copy failed, select the text manually","f.dark":"Dark mode on","f.light":"Light mode on","f.lang":"Switched to English","f.mail":"Email","f.qq":"QQ"
   }
@@ -636,6 +636,7 @@ const T = {
 const $ = (s,r)=>(r||document).querySelector(s);
 const $$ = (s,r)=>Array.from((r||document).querySelectorAll(s));
 let LANG = "zh";
+let selectedSkill = null;          // 已选技能（跨语言保持）
 const t = k => (T[LANG][k] !== undefined ? T[LANG][k] : k);
 const bi = o => (typeof o === "string" ? o : o[LANG]);
 
@@ -649,7 +650,24 @@ function renderSkills(){
       `</div></div>`;
   }).join("");
   $("#sdMeta").textContent = LANG==="zh" ? `共 ${total} 项 · 分 ${SKILLS.length} 组` : `${total} skills · ${SKILLS.length} groups`;
+  if(selectedSkill){
+    const c=$(`.chip[data-skill="${selectedSkill}"]`);
+    if(c) c.setAttribute("aria-pressed","true"); else selectedSkill=null;
+  }
 }
+
+// 把选中技能填入右侧说明面板（语言切换后由 applyI18n 重调用，保持内容同步）
+function showSkill(key){
+  const [gi,ii]=key.split("|").map(Number);
+  const item=SKILLS[gi].items[ii];
+  const box=$("#skillDetail");
+  box.querySelector(".label").textContent = bi(SKILLS[gi].group);
+  box.querySelector("h4").textContent = bi(item.name);
+  $("#sdBody").textContent = bi(item.desc);
+  $("#sdMeta").textContent = bi(item.meta);
+}
+
+const GH_ICO='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.4c-4.1 0-7.4 3.3-7.4 7.4 0 3.3 2.1 6 5.1 7 .4.1.5-.2.5-.4v-1.5c-2.1.5-2.5-1-2.5-1-.4-.9-.8-1.1-.8-1.1-.7-.5.1-.5.1-.5.8.1 1.2.8 1.2.8.7 1.2 1.9.8 2.4.7.1-.5.3-.9.5-1.1-1.7-.2-3.5-.9-3.5-3.9 0-.9.3-1.6.8-2.1-.1-.2-.4-1 .1-2.1 0 0 .6-.2 2.1.8.6-.2 1.2-.2 1.9-.2.6 0 1.3.1 1.9.2 1.4-1 2.1-.8 2.1-.8.4 1.1.2 1.9.1 2.1.5.5.8 1.2.8 2.1 0 3-1.8 3.7-3.5 3.9.3.2.5.7.5 1.3v1.9c0 .3.2.5.5.4 3-1 5.1-3.7 5.1-7 0-4.1-3.3-7.4-7.4-7.4Z"/></svg>';
 
 function workCard(w){
   return `<article class="work" data-cat="${w.catKey}">
@@ -658,14 +676,12 @@ function workCard(w){
     </div>
     <h3>${w.title}</h3>
     <p class="sum">${bi(w.sum)}</p>
+    <ul class="work-points">${w.details.map(d=>`<li>${bi(d)}</li>`).join("")}</ul>
     <div class="work-tech">${w.tech.map(x=>`<span>${x}</span>`).join("")}</div>
-    <button type="button" class="work-more" aria-expanded="false">${t("works.more")}</button>
-    <div class="work-body"><div><dl>
-      <dt>${t("works.role")}</dt><dd>${bi(w.role)}</dd>
-      <dt>${t("works.did")}</dt><dd>${bi(w.did)}</dd>
-      <dt>${t("works.result")}</dt><dd>${bi(w.result)}</dd>
-      <dt>${t("works.link")}</dt><dd><a class="work-link" href="${w.url}" target="_blank" rel="noopener">${w.url}</a></dd>
-    </dl></div></div>
+    <div class="work-foot">
+      <a class="repo-btn" href="${w.url}" target="_blank" rel="noopener">${GH_ICO}<span>${t("works.repoBtn")}</span></a>
+      <span class="work-meta">${bi(w.meta)}</span>
+    </div>
   </article>`;
 }
 
@@ -696,6 +712,7 @@ function applyI18n(){
   });
   renderSkills(); renderFilters(); renderWorks(); renderSocials();
   applyFilter(currentFilter);
+  if(selectedSkill) showSkill(selectedSkill);
 }
 
 /* SECTION: interactions */
@@ -764,17 +781,12 @@ if ("IntersectionObserver" in window){
   img.src=AVATAR;
 })();
 
-// 技能芯片 → 说明面板
+// 技能芯片 → 说明面板（记录选中，切换语言后保持）
 $("#tagWall").addEventListener("click",e=>{
   const b=e.target.closest(".chip"); if(!b) return;
   $$(".chip").forEach(x=>x.setAttribute("aria-pressed", String(x===b)));
-  const [gi,ii]=b.dataset.skill.split("|").map(Number);
-  const item=SKILLS[gi].items[ii];
-  const box=$("#skillDetail");
-  box.querySelector(".label").textContent = bi(SKILLS[gi].group);
-  box.querySelector("h4").textContent = bi(item.name);
-  $("#sdBody").textContent = bi(item.desc);
-  $("#sdMeta").textContent = bi(item.meta);
+  selectedSkill = b.dataset.skill;
+  showSkill(selectedSkill);
 });
 
 // 作品筛选
@@ -792,14 +804,6 @@ $("#filters").addEventListener("click",e=>{
   const b=e.target.closest(".seg"); if(b) applyFilter(b.dataset.f);
 });
 $("#resetFilter").addEventListener("click",()=>applyFilter("all"));
-
-// 作品详情展开
-$("#worksList").addEventListener("click",e=>{
-  const btn=e.target.closest(".work-more"); if(!btn) return;
-  const card=btn.closest(".work"), open=card.classList.toggle("open");
-  btn.setAttribute("aria-expanded", String(open));
-  btn.textContent = open?t("works.less"):t("works.more");
-});
 
 // 复制 + snackbar
 let toastTimer;
