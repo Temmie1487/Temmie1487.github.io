@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Temmie1487 · 个人主页 / Homepage</title>
+<meta name="description" content="Temmie1487 的个人主页 —— C# / GDScript / ESP32，中英双语单文件静态页，可部署到 GitHub Pages。">
+<style>
+/* SECTION: m3 tokens */
+:root{
+  --primary:#5b5bd6;
+  --on-primary:#ffffff;
+  --primary-container:#e0e0ff;
+  --on-primary-container:#191953;
+  --secondary-container:#e3e1f0;
+  --on-secondary-container:#1b1b2f;
+  --tertiary:#8a5a00;
+  --tertiary-container:#ffdec0;
+  --on-tertiary-container:#2d1a00;
+  --surface:#fbf8ff;
+  --surface-1:#f4f2fa;
+  --surface-2:#efedf5;
+  --surface-3:#e8e6f0;
+  --surface-4:#e2e0eb;
+  --on-surface:#1a1a24;
+  --on-surface-variant:#48465a;
+  --outline:#79768d;
+  --outline-variant:#c9c5da;
+  --error:#ba1a1a;
+  --shadow:0 1px 2px rgba(25,22,60,.10),0 1px 3px 1px rgba(25,22,60,.07);
+  --shadow-2:0 2px 6px 2px rgba(25,22,60,.10),0 1px 2px rgba(25,22,60,.14);
+  --display:"PingFang SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  --mono:"SF Mono","Cascadia Mono",Consolas,monospace;
+  --r-s:8px; --r-m:14px; --r-l:20px; --r-xl:28px;
+  --nav-h:64px;
+}
+html[data-theme="dark"]{
+  --primary:#c0c0ff;
+  --on-primary:#2a2a8f;
+  --primary-container:#4242a0;
+  --on-primary-container:#e0e0ff;
+  --secondary-container:#43435a;
+  --on-secondary-container:#e3e1f0;
+  --tertiary:#f2bf86;
+  --tertiary-container:#684400;
+  --on-tertiary-container:#ffdec0;
+  --surface:#131218;
+  --surface-1:#1d1c23;
+  --surface-2:#22212a;
+  --surface-3:#2b2a34;
+  --surface-4:#32313c;
+  --on-surface:#e4e1ec;
+  --on-surface-variant:#c7c4d6;
+  --outline:#918fa4;
+  --outline-variant:#49475b;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 1px 3px 1px rgba(0,0,0,.3);
+  --shadow-2:0 2px 6px 2px rgba(0,0,0,.4),0 1px 2px rgba(0,0,0,.5);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--surface);color:var(--on-surface);
+  font-family:var(--display);font-size:16px;line-height:1.7;
+  transition:background-color .4s ease,color .4s ease;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit}
+button{font-family:inherit}
+:focus-visible{outline:2px solid var(--primary);outline-offset:3px;border-radius:6px}
+.wrap{width:min(1240px,100% - 44px);margin-inline:auto}
+
+/* SECTION: top app bar */
+.appbar{
+  position:sticky;top:0;z-index:60;height:var(--nav-h);
+  background:var(--surface);
+  transition:box-shadow .25s ease,background-color .25s ease;
+}
+.appbar.scrolled{box-shadow:var(--shadow)}
+.appbar .wrap{display:flex;align-items:center;gap:8px;height:var(--nav-h)}
+.brand{font-size:17px;font-weight:600;letter-spacing:.01em;margin-right:6px;white-space:nowrap}
+.brand b{color:var(--primary);font-weight:600}
+.nav-chip{
+  font-size:13.5px;font-weight:500;color:var(--on-surface-variant);
+  text-decoration:none;padding:8px 16px;border-radius:999px;
+  white-space:nowrap;transition:color .2s,background-color .2s;
+}
+.nav-chip:hover{background:var(--surface-2)}
+.nav-chip[aria-current="true"]{background:var(--secondary-container);color:var(--on-secondary-container);font-weight:600}
+.bar-actions{margin-left:auto;display:flex;gap:6px;align-items:center}
+.lang-btn{
+  font-size:13px;font-weight:700;letter-spacing:.04em;
+  background:var(--surface-2);color:var(--on-surface-variant);
+  border:1px solid var(--outline-variant);border-radius:999px;
+  height:40px;padding:0 16px;cursor:pointer;transition:background-color .2s,color .2s;
+}
+.lang-btn:hover{background:var(--surface-3);color:var(--primary)}
+.icon-btn{
+  width:44px;height:44px;border-radius:999px;border:none;cursor:pointer;
+  background:transparent;color:var(--on-surface-variant);font-size:19px;line-height:1;
+  display:grid;place-items:center;transition:background-color .2s,color .2s;
+}
+.icon-btn:hover{background:var(--surface-3);color:var(--primary)}
+
+/* SECTION: hero */
+.hero{padding:72px 0 56px}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:56px;align-items:center}
+.pill{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--surface-2);border:1px solid var(--outline-variant);
+  color:var(--on-surface-variant);border-radius:999px;
+  font-size:12.5px;font-weight:500;letter-spacing:.04em;padding:7px 18px;
+}
+.pill .dot{width:7px;height:7px;border-radius:50%;background:var(--primary)}
+.hero h1{
+  margin:26px 0 12px;font-size:clamp(52px,9vw,100px);line-height:1;
+  font-weight:700;letter-spacing:-.03em;
+}
+.hero h1 em{font-style:normal;color:var(--primary)}
+.hero .sub{
+  font-family:var(--mono);font-size:12px;letter-spacing:.36em;text-transform:uppercase;
+  color:var(--on-surface-variant);margin:0;
+}
+.hero .lede{
+  max-width:46ch;margin:26px 0 0;font-size:clamp(17px,2vw,20px);
+  color:var(--on-surface-variant);line-height:1.65;
+}
+.hero .lede b{color:var(--primary);font-weight:600}
+.hero-actions{display:flex;gap:12px;justify-content:flex-start;flex-wrap:wrap;margin-top:34px}
+
+/* SECTION: buttons (MD3) */
+.btn{
+  display:inline-flex;align-items:center;gap:8px;cursor:pointer;text-decoration:none;
+  font-size:14.5px;font-weight:600;letter-spacing:.02em;
+  padding:0 24px;height:48px;border-radius:999px;border:none;
+  transition:box-shadow .2s,background-color .2s,transform .12s;
+}
+.btn:active{transform:scale(.97)}
+.btn.filled{background:var(--primary);color:var(--on-primary)}
+.btn.filled:hover{box-shadow:var(--shadow-2);filter:brightness(.94)}
+.btn.tonal{background:var(--secondary-container);color:var(--on-secondary-container)}
+.btn.tonal:hover{box-shadow:var(--shadow)}
+.btn.outlined{background:transparent;color:var(--primary);border:1px solid var(--outline)}
+.btn.outlined:hover{background:var(--surface-2)}
+
+/* SECTION: profile card */
+.profile-card{background:var(--surface-1)}
+.profile-head{display:flex;align-items:center;gap:16px;padding-bottom:18px;margin-bottom:4px;border-bottom:1px solid var(--outline-variant)}
+.avatar-lg{
+  width:64px;height:64px;border-radius:50%;flex:none;display:grid;place-items:center;overflow:hidden;
+  background:var(--primary-container);color:var(--on-primary-container);
+  font-size:26px;font-weight:700;
+}
+.avatar-lg img{width:100%;height:100%;object-fit:cover;display:block}
+.p-name{margin:0;font-size:20px;font-weight:700;letter-spacing:-.01em}
+.p-title{margin:4px 0 0;font-size:13.5px;color:var(--on-surface-variant)}
+.profile-card .badge{margin-top:20px}
+
+/* SECTION: section shell */
+.sec{padding:88px 0;scroll-margin-top:var(--nav-h)}
+.sec-head{display:flex;align-items:center;gap:16px;margin-bottom:40px}
+.sec-head .no{
+  font-family:var(--mono);font-size:13px;font-weight:600;
+  background:var(--tertiary-container);color:var(--on-tertiary-container);
+  padding:6px 14px;border-radius:999px;letter-spacing:.06em;
+}
+.sec-head h2{margin:0;font-size:clamp(26px,3.4vw,38px);font-weight:700;letter-spacing:-.01em}
+.sec-head .en{
+  margin-left:auto;font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--on-surface-variant);
+}
+
+/* SECTION: cards & about */
+.card{
+  background:var(--surface-1);border:1px solid var(--outline-variant);
+  border-radius:var(--r-xl);padding:30px 32px;
+}
+.about-grid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:24px;align-items:start}
+.prose p{margin:0 0 18px;font-size:16.5px;line-height:1.85;color:var(--on-surface)}
+.prose p:last-child{margin-bottom:0}
+.about-side{display:grid;gap:20px;position:sticky;top:calc(var(--nav-h) + 20px)}
+.card-title{
+  margin:0 0 14px;font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--on-surface-variant);
+}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.stat{background:var(--surface-2);border:1px solid var(--outline-variant);border-radius:var(--r-m);padding:16px 18px;text-align:center}
+.stat .n{font-size:26px;font-weight:700;color:var(--primary);letter-spacing:-.02em}
+.stat .l{font-size:11.5px;font-weight:600;letter-spacing:.1em;color:var(--on-surface-variant);margin-top:2px}
+.tl{display:grid;gap:0}
+.tl-item{display:flex;align-items:baseline;gap:14px;padding:12px 0;border-bottom:1px solid var(--outline-variant);font-size:14.5px}
+.tl-item:last-child{border-bottom:none}
+.tl-yr{font-family:var(--mono);font-size:12.5px;font-weight:600;color:var(--primary);flex:none;width:76px}
+.tl-tx{color:var(--on-surface)}
+.badge{
+  display:inline-block;margin-top:18px;font-family:var(--mono);font-size:11px;letter-spacing:.1em;
+  background:var(--tertiary-container);color:var(--on-tertiary-container);
+  padding:6px 14px;border-radius:999px;
+}
+.d-item{display:flex;justify-content:space-between;gap:14px;padding:12px 0;border-bottom:1px solid var(--outline-variant);font-size:14.5px}
+.d-item:last-of-type{border-bottom:none}
+.d-item .k{color:var(--on-surface-variant);flex:none}
+.d-item .v{text-align:right}
+
+/* SECTION: skills */
+.skills-grid{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:20px;align-items:start}
+#tagWall{display:grid;gap:18px;align-content:start}
+.skill-group{
+  background:var(--surface-1);border:1px solid var(--outline-variant);
+  border-radius:var(--r-l);padding:22px 24px;
+}
+.skill-group h3{
+  margin:0 0 14px;font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--on-surface-variant);
+}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{
+  font-size:14px;font-weight:500;padding:9px 18px;border-radius:var(--r-s);
+  background:var(--surface-2);color:var(--on-surface-variant);
+  border:1px solid var(--outline-variant);cursor:pointer;
+  transition:background-color .2s,color .2s,border-color .2s,transform .12s;
+}
+.chip:hover{background:var(--surface-3);transform:translateY(-1px)}
+.chip[aria-pressed="true"]{
+  background:var(--primary-container);color:var(--on-primary-container);
+  border-color:var(--primary);font-weight:600;
+}
+.skill-detail{
+  background:var(--primary-container);color:var(--on-primary-container);
+  border-radius:var(--r-xl);padding:26px 28px;position:sticky;top:calc(var(--nav-h) + 20px);
+}
+.skill-detail .label{margin:0;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--primary)}
+.skill-detail h4{margin:10px 0 12px;font-size:24px;font-weight:700;letter-spacing:-.01em}
+.skill-detail p.body{margin:0;font-size:15.5px;line-height:1.75}
+.skill-detail .meta{
+  margin:18px 0 0;padding-top:14px;border-top:1px solid var(--outline-variant);
+  font-family:var(--mono);font-size:12px;line-height:1.6;opacity:.9;
+}
+
+/* SECTION: works */
+.work-tools{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:28px}
+.segmented{display:inline-flex;border:1px solid var(--outline);border-radius:999px;overflow:hidden}
+.segmented .seg{
+  font-size:13.5px;font-weight:500;color:var(--on-surface-variant);
+  background:transparent;border:none;border-right:1px solid var(--outline);
+  padding:10px 20px;cursor:pointer;transition:background-color .2s,color .2s;
+}
+.segmented .seg:last-child{border-right:none}
+.segmented .seg:hover{background:var(--surface-2)}
+.segmented .seg[aria-pressed="true"]{background:var(--secondary-container);color:var(--on-secondary-container);font-weight:700}
+.count{margin-left:auto;font-family:var(--mono);font-size:12.5px;color:var(--on-surface-variant)}
+.works{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:20px}
+.work{
+  background:var(--surface-1);border:1px solid var(--outline-variant);border-radius:var(--r-l);
+  padding:24px 26px;display:flex;flex-direction:column;
+  transition:box-shadow .25s,transform .25s,border-color .25s;
+}
+.work:hover{box-shadow:var(--shadow-2);transform:translateY(-3px)}
+.work[hidden]{display:none}
+.work-top{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.work .no{
+  font-family:var(--mono);font-size:12px;font-weight:600;color:var(--on-primary);
+  background:var(--primary);width:32px;height:32px;border-radius:50%;
+  display:grid;place-items:center;flex:none;
+}
+.work .cat{
+  font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  background:var(--tertiary-container);color:var(--on-tertiary-container);
+  padding:5px 12px;border-radius:999px;
+}
+.work .yr{margin-left:auto;font-family:var(--mono);font-size:12px;color:var(--on-surface-variant)}
+.work h3{margin:0 0 8px;font-size:21px;font-weight:700;letter-spacing:-.01em}
+.work .sum{margin:0;font-size:14.5px;line-height:1.65;color:var(--on-surface-variant)}
+.work-tech{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.work-tech span{
+  font-size:11.5px;font-weight:600;padding:4px 12px;border-radius:999px;
+  background:var(--surface-3);color:var(--on-surface-variant);
+}
+.work-more{
+  margin-top:16px;align-self:flex-start;font-size:13px;font-weight:600;color:var(--primary);
+  background:transparent;border:none;cursor:pointer;padding:8px 14px;border-radius:999px;
+  transition:background-color .2s;
+}
+.work-more:hover{background:var(--surface-2)}
+.work-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .34s ease}
+.work.open .work-body{grid-template-rows:1fr}
+.work-body > div{overflow:hidden}
+.work-body dl{
+  margin:16px 0 0;padding:18px 20px;background:var(--surface-2);
+  border-radius:var(--r-m);font-size:14px;line-height:1.6;
+}
+.work-body dt{font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--primary);margin-top:12px}
+.work-body dt:first-child{margin-top:0}
+.work-body dd{margin:3px 0 0;color:var(--on-surface)}
+.work-link{display:inline-block;margin-top:4px;color:var(--primary);font-weight:600;word-break:break-all}
+.empty{
+  display:none;grid-column:1/-1;text-align:center;padding:56px 20px;
+  background:var(--surface-1);border:1px dashed var(--outline);border-radius:var(--r-xl);
+}
+.empty.show{display:block}
+.empty p{margin:0 0 18px;color:var(--on-surface-variant);font-size:14.5px}
+
+/* SECTION: contact */
+.contact-grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:20px;align-items:start}
+.social-tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+.tile{
+  display:flex;align-items:center;gap:14px;
+  background:var(--surface-2);border:1px solid var(--outline-variant);
+  border-radius:var(--r-m);padding:16px 18px;
+  text-decoration:none;cursor:pointer;font:inherit;color:inherit;text-align:left;
+  transition:box-shadow .25s,transform .25s,border-color .25s;
+}
+.tile:hover{box-shadow:var(--shadow-2);transform:translateY(-2px);border-color:var(--primary)}
+.tile-icon{
+  width:46px;height:46px;border-radius:14px;flex:none;display:grid;place-items:center;
+  background:var(--primary-container);color:var(--on-primary-container);
+}
+.tile-icon svg{width:26px;height:26px;display:block}
+.tile-text{display:grid;gap:2px;min-width:0}
+.tile-net{font-size:15.5px;font-weight:700}
+.tile-handle{font-family:var(--mono);font-size:12px;color:var(--on-surface-variant);overflow-wrap:anywhere}
+.tile-arrow{margin-left:auto;flex:none;color:var(--primary);font-weight:700;font-size:15px}
+.mail-line{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-family:var(--mono);font-size:13.5px;margin:6px 0 14px;word-break:break-all}
+.mail-line a{color:var(--primary);text-decoration:none}
+.mail-line a:hover{text-decoration:underline}
+.mini-btn{
+  font-family:var(--display);font-size:11.5px;font-weight:600;color:var(--primary);
+  background:transparent;border:none;cursor:pointer;padding:6px 12px;border-radius:999px;
+  transition:background-color .2s;
+}
+.mini-btn:hover{background:var(--surface-3)}
+.contact-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.stagger{opacity:0;transform:translateY(12px);transition:opacity .45s ease,transform .45s ease}
+.in .stagger{opacity:1;transform:none}
+.tile:active{transform:scale(.98)}
+
+/* SECTION: footer + toast + motion */
+footer{padding:34px 0 60px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:14px;align-items:baseline;justify-content:space-between;font-size:12.5px;color:var(--on-surface-variant)}
+#toast{
+  position:fixed;left:50%;bottom:32px;transform:translate(-50%,24px);
+  background:var(--on-surface);color:var(--surface);
+  font-size:14px;font-weight:500;padding:14px 26px;border-radius:var(--r-s);
+  box-shadow:var(--shadow-2);opacity:0;pointer-events:none;z-index:80;
+  transition:opacity .28s ease,transform .28s ease;max-width:88vw;text-align:center;
+}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+#toast.err{background:var(--error);color:#fff}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .65s ease,transform .65s ease}
+.reveal.in{opacity:1;transform:none}
+
+/* SECTION: responsive */
+@media (max-width:980px){
+  .hero-grid{grid-template-columns:minmax(0,1fr);gap:36px}
+  .profile-card{max-width:440px}
+}
+@media (max-width:900px){
+  .about-grid,.skills-grid,.contact-grid{grid-template-columns:minmax(0,1fr)}
+  .about-side,.skill-detail{position:static}
+  .brand{display:none}
+}
+@media (max-width:620px){
+  .wrap{width:min(1240px,100% - 28px)}
+  .sec{padding:64px 0}
+  .hero{padding:48px 0 30px}
+  .works{grid-template-columns:minmax(0,1fr)}
+  .segmented{width:100%}
+  .segmented .seg{flex:1;padding:10px 8px;font-size:12px}
+  .stats{gap:8px}
+  .stat{padding:12px 8px}
+  .stat .n{font-size:20px}
+  .lang-btn{padding:0 10px;font-size:12px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{transition:none!important;animation:none!important}
+  .reveal{opacity:1;transform:none}
+  .stagger{opacity:1;transform:none}
+}
+/* SECTION: print */
+@media print{
+  .appbar,.icon-btn,.lang-btn,.work-more,.mini-btn,.contact-actions{display:none!important}
+  body{background:#fff;color:#000}
+  .work-body{grid-template-rows:1fr}
+  .stagger{opacity:1;transform:none}
+  .sec{padding:16px 0;break-inside:avoid}
+}
+</style>
+</head>
+<body>
+
+<!-- SECTION: app bar -->
+<header class="appbar" id="appbar">
+  <div class="wrap">
+    <span class="brand">Temmie<b>1487</b></span>
+    <nav aria-label="目录" style="display:flex;gap:4px;overflow-x:auto">
+      <a class="nav-chip" href="#about" data-i18n="nav.about">关于</a>
+      <a class="nav-chip" href="#skills" data-i18n="nav.skills">能力</a>
+      <a class="nav-chip" href="#works" data-i18n="nav.works">作品</a>
+      <a class="nav-chip" href="#contact" data-i18n="nav.contact">联系</a>
+    </nav>
+    <div class="bar-actions">
+      <button class="lang-btn" id="langBtn" type="button" aria-pressed="false">EN</button>
+      <button class="icon-btn" id="themeBtn" type="button" aria-pressed="false" title="切换深浅色">◐</button>
+    </div>
+  </div>
+</header>
+
+<!-- SECTION: hero -->
+<section class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="pill"><span class="dot"></span><span data-i18n="hero.pill">高中在读 · 什么都会一点 · 2026 · 10</span></span>
+      <h1>Temmie<em>1487</em></h1>
+      <p class="sub">Student Developer</p>
+      <p class="lede" data-i18n="hero.lede">写 C# 桌面应用，用 Godot 做游戏，也在 ESP32 上折腾硬件——<b>什么都会一点</b>，有趣就想上手。我的世界与彩虹六号常驻玩家。</p>
+      <div class="hero-actions">
+        <a class="btn filled" href="#works" data-primary-action="查看作品" data-i18n="hero.ctaWorks">查看作品</a>
+        <a class="btn outlined" href="#contact" data-i18n="hero.ctaContact">联系我</a>
+      </div>
+    </div>
+    <aside class="card profile-card">
+      <div class="profile-head">
+        <span class="avatar-lg" id="avatarLg">T</span>
+        <div>
+          <p class="p-name">Temmie</p>
+          <p class="p-title" data-i18n="profile.title">学生开发者 / 高中生</p>
+        </div>
+      </div>
+      <div class="d-item"><span class="k" data-i18n="profile.k1">平台</span><span class="v">Windows · GitHub</span></div>
+      <div class="d-item"><span class="k" data-i18n="profile.k2">方向</span><span class="v" data-i18n="profile.v2">桌面应用 · 嵌入式 · 游戏</span></div>
+      <div class="d-item"><span class="k" data-i18n="profile.k3">语言</span><span class="v">C# · GDScript · C++</span></div>
+      <div class="d-item"><span class="k" data-i18n="profile.k4">爱好</span><span class="v" data-i18n="profile.v4">摄影 · 后期 · 开发</span></div>
+      <span class="badge" data-i18n="profile.badge">Since 2024 · GitHub</span>
+    </aside>
+  </div>
+</section>
+
+<main>
+<!-- SECTION: about -->
+<section class="sec reveal" id="about">
+  <div class="wrap">
+    <div class="sec-head"><span class="no">01</span><h2 data-i18n="about.title">关于我</h2><span class="en">About</span></div>
+    <div class="about-grid">
+      <div class="card">
+        <div class="prose">
+          <p data-i18n="about.p1">我是 Temmie，现在在读高中。这页面上的东西基本都是课余做出来的：C# 桌面工具、ESP32 固件，还有这个单文件网页。</p>
+          <p data-i18n="about.p2">摄影和影像后期是我的日常产出，折腾电脑算低血压治疗方式；闲下来一般泡在《我的世界》或者《彩虹六号》里。</p>
+          <p data-i18n="about.p3">学习路径很直接：感兴趣 → 查资料 → 不会就问AI → 做出来。WinTools 和 nfc-door-lock 都是这么完成的，代码全在 GitHub 上，点作品里的链接就能看。</p>
+        </div>
+      </div>
+      <aside class="about-side">
+        <div class="card">
+          <h3 class="card-title" data-i18n="about.statsTitle">数据一览</h3>
+          <div class="stats">
+            <div class="stat"><div class="n">5</div><div class="l" data-i18n="about.s1">公开仓库</div></div>
+            <div class="stat"><div class="n">3</div><div class="l" data-i18n="about.s2">Stars</div></div>
+            <div class="stat"><div class="n">2024</div><div class="l" data-i18n="about.s3">加入 GitHub</div></div>
+          </div>
+        </div>
+        <div class="card">
+          <h3 class="card-title" data-i18n="about.tlTitle">经历</h3>
+          <div class="tl">
+            <div class="tl-item"><span class="tl-yr">2026.08</span><span class="tl-tx" data-i18n="about.tl1">nfc-door-lock · ESP32 智能门禁</span></div>
+            <div class="tl-item"><span class="tl-yr">2026.02</span><span class="tl-tx" data-i18n="about.tl2">WinTools · WPF 系统管理工具开源</span></div>
+            <div class="tl-item"><span class="tl-yr">2024.07</span><span class="tl-tx" data-i18n="about.tl3">注册 GitHub，开始公开写代码</span></div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION: skills -->
+<section class="sec reveal" id="skills">
+  <div class="wrap">
+    <div class="sec-head"><span class="no">02</span><h2 data-i18n="skills.title">能力</h2><span class="en">Skills</span></div>
+    <div class="skills-grid">
+      <div id="tagWall"></div>
+      <div class="skill-detail" id="skillDetail" role="status" aria-live="polite">
+        <p class="label" data-i18n="skills.hint">点选任一项</p>
+        <h4 data-i18n="skills.detailTitle">能力说明</h4>
+        <p class="body" id="sdBody" data-i18n="skills.detailBody">这里展开该项的具体说明，以及我在哪些项目里用过它。</p>
+        <p class="meta" id="sdMeta"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION: works -->
+<section class="sec reveal" id="works">
+  <div class="wrap">
+    <div class="sec-head"><span class="no">03</span><h2 data-i18n="works.title">作品集</h2><span class="en">Works</span></div>
+    <div class="work-tools">
+      <div class="segmented" id="filters" role="group" aria-label="作品筛选"></div>
+      <span class="count" id="count"></span>
+    </div>
+    <div class="works" id="worksList"></div>
+    <div class="empty" id="empty">
+      <p data-i18n="works.empty">这一栏目下暂时没有收录</p>
+      <button class="btn tonal" id="resetFilter" type="button" data-i18n="works.reset">查看全部</button>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION: contact -->
+<section class="sec reveal" id="contact">
+  <div class="wrap">
+    <div class="sec-head"><span class="no">04</span><h2 data-i18n="contact.title">联系</h2><span class="en">Contact</span></div>
+    <div class="contact-grid">
+      <div class="card">
+        <span class="pill"><span class="dot"></span><span data-i18n="contact.pill">技术交流与闲聊都欢迎</span></span>
+        <div class="social-tiles" id="socials" style="margin-top:22px"></div>
+      </div>
+      <div class="card">
+        <h3 class="card-title" data-i18n="contact.emailTitle">邮件</h3>
+        <p class="mail-line">
+          <a id="mailtoLink" href="mailto:MIB12345678902020@outlook.com">MIB12345678902020@outlook.com</a>
+          <button class="mini-btn" id="copyMail" type="button" data-primary-action="复制邮箱" data-i18n="contact.copy">复制</button>
+        </p>
+        <p style="margin:0;color:var(--on-surface-variant);font-size:14px" data-i18n="contact.desc">合作、请教、闲聊都欢迎，看到就会回。</p>
+        <div class="contact-actions" style="margin-top:18px">
+          <a class="btn tonal" style="height:42px;padding:0 20px;font-size:13.5px" id="mailtoBtn" href="mailto:MIB12345678902020@outlook.com" data-i18n="contact.sendMail">发邮件</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span data-i18n="footer.copy">© 2026 Temmie1487 · 单文件静态页 · 无框架无依赖</span>
+    <span>Material Design 3 inspired · GitHub Pages</span>
+  </div>
+</footer>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* SECTION: data */
+// 头像：用户提供的 Temmie 同人图（经 upload_asset 上传的公网地址）
+const AVATAR = "https://workspace-cdn.uzone.com/d8f3ed637d914b52b671e429802622ce%2Fo%2F1790862732934-c.png?auth_key=1793454733-0-0-9b8d91d5df04b40f087473c58bb55a54";
+const MAIL = "MIB12345678902020@outlook.com";
+
+const SKILLS = [
+  {group:{zh:"编程语言",en:"Languages"},items:[
+    {name:"C#",desc:{zh:"主力语言。用 WPF + WPF-UI 独立开发了 WinTools，熟悉 .NET 9 生态与桌面应用架构。",en:"My main language. Built WinTools solo with WPF + WPF-UI on .NET 9."},meta:{zh:"WinTools · WPF-UI",en:"WinTools · WPF-UI"}},
+    {name:"GDScript",desc:{zh:"Godot 引擎的脚本语言，用来写游戏逻辑与玩法原型。",en:"Godot's scripting language, used for gameplay logic and prototypes."},meta:{zh:"Godot Engine",en:"Godot Engine"}},
+    {name:"C++",desc:{zh:"嵌入式方向：为 ESP32 编写 NFC 门禁固件，处理状态机与传感器消抖。",en:"Embedded side: ESP32 firmware for the NFC lock — state machines and debounce."},meta:{zh:"nfc-door-lock",en:"nfc-door-lock"}},
+    {name:"HTML · CSS · JS",desc:{zh:"你现在看的这个页面就是手写成果：单文件、双语、零依赖。",en:"This very page is the proof: single file, bilingual, zero dependencies."},meta:{zh:"本页面",en:"This page"}}
+  ]},
+  {group:{zh:"兴趣爱好（不完全）",en:"Hobbies (incomplete list)"},items:[
+    {name:"摄影",desc:{zh:"喜欢拍照，记录光影和日常。",en:"Photography — light and everyday scenes."},meta:{zh:"相机",en:"Camera"}},
+    {name:"剪辑",desc:{zh:"视频剪辑：从粗剪、节奏到字幕一条龙。",en:"Video editing: rough cut, pacing, subtitles — the whole pipeline."},meta:{zh:"后期制作",en:"Post-production"}},
+    {name:"调色",desc:{zh:"色彩还原与风格化调色，LUT 自己也在攒。",en:"Color correction and grading; building my own LUT collection."},meta:{zh:"色彩",en:"Color"}},
+    {name:"嵌入式开发",desc:{zh:"ESP32、读卡器、传感器，从接线到写固件一整套都自己来。",en:"ESP32, readers, sensors — wiring to firmware, all hands-on."},meta:{zh:"nfc-door-lock",en:"nfc-door-lock"}},
+    {name:"折腾电脑",desc:{zh:"装机、调系统、试新工具，折腾本身就是乐趣。",en:"Building PCs, tuning systems, trying new tools — the tinkering is the point."},meta:{zh:"Windows 重度用户",en:"Power Windows user"}},
+    {name:"音乐发烧",desc:{zh:"听歌挑剔设备和声音素质。",en:"Audiophile — particular about gear and sound quality."},meta:{zh:"Hi-Fi",en:"Hi-Fi"}},
+    {name:"神秘博士",desc:{zh:"剧粉，看老牌英剧是固定放松项目。",en:"Doctor Who fan — a regular way to unwind."},meta:{zh:"Doctor Who",en:"Doctor Who"}},
+    {name:"我的世界",desc:{zh:"老玩家，偶尔研究整合包和 Mod 冲突。",en:"Long-time player; modpacks and conflict fixing on the side."},meta:{zh:"Minecraft",en:"Minecraft"}},
+    {name:"彩虹六号",desc:{zh:"爱打战术射击，研究地图和干员很有意思。",en:"Rainbow Six Siege — maps, operators, the tactical loop."},meta:{zh:"R6S",en:"R6S"}}
+  ]}
+];
+
+const WORKS = [
+  {no:"01",title:"WinTools",cat:{zh:".NET 桌面",en:"Desktop"},catKey:"desktop",year:"2026",
+   sum:{zh:"Windows 系统管理工具：WPF + WPF-UI 开发，Fluent Design 风格与 Mica 背景。",en:"A Windows system manager built with WPF + WPF-UI, Fluent design with Mica background."},
+   tech:[".NET 9","WPF","WPF-UI","Fluent","Apache-2.0"],
+   role:{zh:"独立设计与开发",en:"Solo design & development"},
+   did:{zh:"包含仪表盘、进程、服务、性能、磁盘、网络、应用、设备、启动项、环境变量、用户、电源共 12 个管理模块。",en:"12 modules: dashboard, processes, services, performance, disk, network, apps, devices, startup, env vars, users, power."},
+   result:{zh:"Apache-2.0 开源，2 stars · 1 fork。",en:"Open-sourced under Apache-2.0, 2 stars · 1 fork."},
+   url:"https://github.com/Temmie1487/WinTools"},
+  {no:"02",title:"nfc-door-lock",cat:{zh:"嵌入式",en:"Embedded"},catKey:"embedded",year:"2026",
+   sum:{zh:"基于 ESP32 的智能门禁：NFC 刷卡开门、按钮开门、门磁自动上锁。",en:"ESP32 smart door lock: NFC card unlock, button unlock, auto-lock on door sensor."},
+   tech:["ESP32","C++","PN532 (HSU)","Relay","State machine"],
+   role:{zh:"独立设计与实现",en:"Solo design & implementation"},
+   did:{zh:"PN532 读卡授权、继电器控制电磁锁，具备状态机管理、安全超时与传感器消抖。",en:"PN532 card auth, relay-driven electromagnetic lock, with state machine, safety timeout and sensor debounce."},
+   result:{zh:"完整方案开源，README 记录了硬件接线与逻辑。",en:"Fully documented and open source."},
+   url:"https://github.com/Temmie1487/nfc-door-lock"}
+];
+
+// 自制矢量图标（内联 SVG，非外部图标库）
+const SOCIALS = [
+  {net:"GitHub",handle:"@Temmie1487",url:"https://github.com/Temmie1487",
+   icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.4c-4.1 0-7.4 3.3-7.4 7.4 0 3.3 2.1 6 5.1 7 .4.1.5-.2.5-.4v-1.5c-2.1.5-2.5-1-2.5-1-.4-.9-.8-1.1-.8-1.1-.7-.5.1-.5.1-.5.8.1 1.2.8 1.2.8.7 1.2 1.9.8 2.4.7.1-.5.3-.9.5-1.1-1.7-.2-3.5-.9-3.5-3.9 0-.9.3-1.6.8-2.1-.1-.2-.4-1 .1-2.1 0 0 .6-.2 2.1.8.6-.2 1.2-.2 1.9-.2.6 0 1.3.1 1.9.2 1.4-1 2.1-.8 2.1-.8.4 1.1.2 1.9.1 2.1.5.5.8 1.2.8 2.1 0 3-1.8 3.7-3.5 3.9.3.2.5.7.5 1.3v1.9c0 .3.2.5.5.4 3-1 5.1-3.7 5.1-7 0-4.1-3.3-7.4-7.4-7.4Z"/></svg>'},
+  {net:"X",handle:"@Temmie786986",url:"https://x.com/Temmie786986",
+   icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M5.5 5.5 18.5 18.5"/><path d="M18.5 5.5 5.5 18.5"/></svg>'},
+  {net:"Bilibili",handle:"space.bilibili.com/1687580392",url:"https://space.bilibili.com/1687580392",
+   icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="8" width="18" height="12" rx="3.5"/><path d="M7.5 8 5 4.5"/><path d="M16.5 8 19 4.5"/><path d="M9.3 12v1.8"/><path d="M14.7 12v1.8"/></svg>'},
+  {net:"QQ",handle:"3361975291",copy:"3361975291",
+   icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4.5c-3.3 0-5.6 2.6-5.6 6.1 0 1.3-.4 2.4-1 3.2-.6 1.1-.1 1.9.8 1.5.6-.3 1.3-.5 1.8-.5.8 1.6 2.3 2.5 4 2.5s3.2-.9 4-2.5c.5 0 1.2.2 1.8.5.9.4 1.4-.4.8-1.5-.6-.8-1-1.9-1-3.2 0-3.5-2.3-6.1-5.6-6.1Z"/><circle cx="9.8" cy="10" r=".7" fill="currentColor" stroke="none"/><circle cx="14.2" cy="10" r=".7" fill="currentColor" stroke="none"/><path d="M10.4 12.6h3.2l-1.6 1.8Z" fill="currentColor" stroke="none"/></svg>'}
+];
+
+/* SECTION: i18n dictionary */
+const T = {
+  zh:{
+    "nav.about":"关于","nav.skills":"能力","nav.works":"作品","nav.contact":"联系",
+    "hero.pill":"高中在读 · 什么都会一点 · 2026 · 10",
+    "hero.lede":'写 C# 桌面应用，用 Godot 做游戏，也在 ESP32 上折腾硬件——<b>什么都会一点</b>，有趣就想上手。我的世界与彩虹六号常驻玩家。',
+    "hero.ctaWorks":"查看作品","hero.ctaContact":"联系我",
+    "profile.title":"学生开发者 / 高中生","profile.k1":"平台","profile.k2":"方向","profile.v2":"桌面应用 · 嵌入式 · 游戏","profile.k3":"语言","profile.k4":"爱好","profile.v4":"摄影 · 后期 · 开发","profile.badge":"Since 2024 · GitHub",
+    "about.title":"关于我",
+    "about.p1":"我是 Temmie，现在在读高中。这页面上的东西基本都是课余做出来的：C# 桌面工具、ESP32 固件，还有这个单文件网页。",
+    "about.p2":"摄影和影像后期是我的日常产出，折腾电脑算低血压治疗方式；闲下来一般泡在《我的世界》或者《彩虹六号》里。",
+    "about.p3":"学习路径很直接：感兴趣 → 查资料 → 不会就问AI → 做出来。WinTools 和 nfc-door-lock 都是这么完成的，代码全在 GitHub 上，点作品里的链接就能看。",
+    "about.statsTitle":"数据一览","about.s1":"公开仓库","about.s2":"Stars","about.s3":"加入 GitHub",
+    "about.tlTitle":"经历","about.tl1":"nfc-door-lock · ESP32 智能门禁","about.tl2":"WinTools · WPF 系统管理工具开源","about.tl3":"注册 GitHub，开始公开写代码",
+    "skills.title":"能力","skills.hint":"点选任一项","skills.detailTitle":"能力说明","skills.detailBody":"这里展开该项的具体说明，以及我在哪些项目里用过它。",
+    "works.title":"作品集","works.empty":"这一栏目下暂时没有收录","works.reset":"查看全部",
+    "works.role":"我的角色","works.did":"做了什么","works.result":"结果","works.link":"仓库链接",
+    "works.more":"展开详情 ↓","works.less":"收起详情 ↑",
+    "contact.title":"联系","contact.pill":"技术交流与闲聊都欢迎","contact.desc":"合作、请教、闲聊都欢迎，看到就会回。","contact.sendMail":"发邮件","contact.emailTitle":"邮件","contact.copy":"复制",
+    "footer.copy":"© 2026 Temmie1487 · 单文件静态页 · 无框架无依赖",
+    "f.copied":"已复制","f.fail":"复制失败，请手动选中文字","f.dark":"已切换到深色","f.light":"已切换到浅色","f.lang":"已切换到中文","f.mail":"邮箱","f.qq":"QQ"
+  },
+  en:{
+    "nav.about":"About","nav.skills":"Skills","nav.works":"Works","nav.contact":"Contact",
+    "hero.pill":"High schooler · A bit of everything · 2026 · 10",
+    "hero.lede":'I build C# desktop apps, make games in Godot, and tinker with ESP32 hardware. <b>A bit of everything</b> — if it\u2019s fun, I\u2019ll try it. Regular Minecraft & Rainbow Six player.',
+    "hero.ctaWorks":"See works","hero.ctaContact":"Contact me",
+    "profile.title":"Student developer","profile.k1":"Platform","profile.k2":"Focus","profile.v2":"Desktop · Embedded · Games","profile.k3":"Languages","profile.k4":"Interests","profile.v4":"Photo · Post · Dev","profile.badge":"Since 2024 · GitHub",
+    "about.title":"About me",
+    "about.p1":"I'm Temmie, a high school student. Most of what you see here is after-class work: C# desktop tools, ESP32 firmware, and this single-file website.",
+    "about.p2":"Photography and video post-production are my usual output; tinkering with PCs doubles as low-blood-pressure therapy. Free evenings go to Minecraft or Rainbow Six.",
+    "about.p3":"My learning loop is simple: curious → search → ask AI when stuck → build. WinTools and nfc-door-lock both shipped that way — the code is on GitHub, one click from the Works section.",
+    "about.statsTitle":"At a glance","about.s1":"Public repos","about.s2":"Stars","about.s3":"Joined GitHub",
+    "about.tlTitle":"Timeline","about.tl1":"nfc-door-lock · ESP32 smart lock","about.tl2":"WinTools · WPF system manager open-sourced","about.tl3":"Joined GitHub, started coding in public",
+    "skills.title":"Skills","skills.hint":"Pick any skill","skills.detailTitle":"Details","skills.detailBody":"Each skill expands here, with the projects where I actually used it.",
+    "works.title":"Works","works.empty":"Nothing in this category yet","works.reset":"Show all",
+    "works.role":"My role","works.did":"What I did","works.result":"Result","works.link":"Repository",
+    "works.more":"Show details ↓","works.less":"Hide details ↑",
+    "contact.title":"Contact","contact.pill":"Talk tech or just chat","contact.desc":"Collabs, questions, random chat — I reply when I see it.","contact.sendMail":"Send email","contact.emailTitle":"Email","contact.copy":"Copy",
+    "footer.copy":"© 2026 Temmie1487 · Single-file page · No frameworks",
+    "f.copied":"copied","f.fail":"Copy failed, select the text manually","f.dark":"Dark mode on","f.light":"Light mode on","f.lang":"Switched to English","f.mail":"Email","f.qq":"QQ"
+  }
+};
+
+/* SECTION: state */
+const $ = (s,r)=>(r||document).querySelector(s);
+const $$ = (s,r)=>Array.from((r||document).querySelectorAll(s));
+let LANG = "zh";
+const t = k => (T[LANG][k] !== undefined ? T[LANG][k] : k);
+const bi = o => (typeof o === "string" ? o : o[LANG]);
+
+/* SECTION: render */
+function renderSkills(){
+  let total = 0;
+  $("#tagWall").innerHTML = SKILLS.map(g=>{
+    total += g.items.length;
+    return `<div class="skill-group"><h3>${bi(g.group)}</h3><div class="chips">`+
+      g.items.map(it=>`<button type="button" class="chip" aria-pressed="false" data-skill="${SKILLS.indexOf(g)}|${g.items.indexOf(it)}">${it.name}</button>`).join("")+
+      `</div></div>`;
+  }).join("");
+  $("#sdMeta").textContent = LANG==="zh" ? `共 ${total} 项 · 分 ${SKILLS.length} 组` : `${total} skills · ${SKILLS.length} groups`;
+}
+
+function workCard(w){
+  return `<article class="work" data-cat="${w.catKey}">
+    <div class="work-top">
+      <span class="no">${w.no}</span><span class="cat">${bi(w.cat)}</span><span class="yr">${w.year}</span>
+    </div>
+    <h3>${w.title}</h3>
+    <p class="sum">${bi(w.sum)}</p>
+    <div class="work-tech">${w.tech.map(x=>`<span>${x}</span>`).join("")}</div>
+    <button type="button" class="work-more" aria-expanded="false">${t("works.more")}</button>
+    <div class="work-body"><div><dl>
+      <dt>${t("works.role")}</dt><dd>${bi(w.role)}</dd>
+      <dt>${t("works.did")}</dt><dd>${bi(w.did)}</dd>
+      <dt>${t("works.result")}</dt><dd>${bi(w.result)}</dd>
+      <dt>${t("works.link")}</dt><dd><a class="work-link" href="${w.url}" target="_blank" rel="noopener">${w.url}</a></dd>
+    </dl></div></div>
+  </article>`;
+}
+
+function renderFilters(){
+  const cats = [["all",LANG==="zh"?"全部":"All"],["desktop",".NET"],["embedded",LANG==="zh"?"嵌入式":"Embedded"]];
+  const active = currentFilter;
+  $("#filters").innerHTML = cats.map(c=>
+    `<button type="button" class="seg" data-f="${c[0]}" aria-pressed="${c[0]===active?'true':'false'}">${c[1]}</button>`).join("");
+}
+
+function renderSocials(){
+  $("#socials").innerHTML = SOCIALS.map((s,i)=>{
+    const inner = `<span class="tile-icon">${s.icon}</span>
+      <span class="tile-text"><span class="tile-net">${s.net}</span><span class="tile-handle">${s.handle}</span></span>
+      <span class="tile-arrow">${s.url?"→":"⧉"}</span>`;
+    const delay = `style="transition-delay:${i*90}ms"`;
+    return s.url
+      ? `<a class="tile stagger" ${delay} href="${s.url}" target="_blank" rel="noopener">${inner}</a>`
+      : `<button type="button" class="tile stagger" ${delay} data-copy="${s.copy}">${inner}</button>`;
+  }).join("");
+}
+
+function applyI18n(){
+  document.documentElement.lang = LANG==="zh" ? "zh-CN" : "en";
+  $$("[data-i18n]").forEach(el=>{
+    const k = el.dataset.i18n;
+    if(k==="hero.lede") el.innerHTML = t(k); else el.textContent = t(k);
+  });
+  renderSkills(); renderFilters(); renderWorks(); renderSocials();
+  applyFilter(currentFilter);
+}
+
+/* SECTION: interactions */
+// 目录：点击更新地址 + 滚动位置驱动高亮（比观察器更贴合实际滚动）
+(function(){
+  const links = $$("nav a");
+  const secs = $$("main section.sec");
+  const NAV = 64;
+  let cur = "";
+  function paint(id){
+    if(id===cur) return;
+    cur = id;
+    links.forEach(l=>l.setAttribute("aria-current", String(l.getAttribute("href")==="#"+id)));
+  }
+  function sync(){
+    const pos = scrollY + NAV + 44;
+    let id = "";
+    for(const s of secs){ if(s.offsetTop <= pos) id = s.id; }
+    if(innerHeight + scrollY >= document.documentElement.scrollHeight - 10) id = "contact";
+    paint(id);
+  }
+  let ticking = false;
+  addEventListener("scroll",()=>{ if(!ticking){ticking=true;requestAnimationFrame(()=>{sync();ticking=false;});} },{passive:true});
+  addEventListener("resize",sync,{passive:true});
+  links.forEach(a=>a.addEventListener("click",()=>{ history.replaceState(null,"",a.getAttribute("href")); }));
+  sync();
+})();
+if ("IntersectionObserver" in window){
+  const rev = new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){e.target.classList.add("in");rev.unobserve(e.target);} }),{threshold:.1});
+  $$(".reveal").forEach(el=>rev.observe(el));
+} else { $$(".reveal").forEach(el=>el.classList.add("in")); }
+
+(function(){
+  const bar=$("#appbar");
+  const upd=()=>bar.classList.toggle("scrolled",scrollY>8);
+  addEventListener("scroll",upd,{passive:true}); upd();
+})();
+
+// 头像：远程加载失败时回退字母 T
+(function(){
+  const box=$("#avatarLg");
+  const img=new Image();
+  img.alt="Temmie avatar";
+  img.onload=()=>{ box.innerHTML=""; box.appendChild(img); };
+  img.src=AVATAR;
+})();
+
+// 技能芯片 → 说明面板
+$("#tagWall").addEventListener("click",e=>{
+  const b=e.target.closest(".chip"); if(!b) return;
+  $$(".chip").forEach(x=>x.setAttribute("aria-pressed", String(x===b)));
+  const [gi,ii]=b.dataset.skill.split("|").map(Number);
+  const item=SKILLS[gi].items[ii];
+  const box=$("#skillDetail");
+  box.querySelector(".label").textContent = bi(SKILLS[gi].group);
+  box.querySelector("h4").textContent = item.name;
+  $("#sdBody").textContent = bi(item.desc);
+  $("#sdMeta").textContent = bi(item.meta);
+});
+
+// 作品筛选
+let currentFilter="all";
+function renderWorks(){ $("#worksList").innerHTML = WORKS.map(workCard).join(""); }
+function applyFilter(key){
+  currentFilter=key;
+  const cards=$$(".work"); let n=0;
+  cards.forEach(c=>{ const show=(key==="all"||c.dataset.cat===key); c.hidden=!show; if(show) n++; });
+  $("#count").textContent = `${n} / ${cards.length}`;
+  $("#empty").classList.toggle("show", n===0);
+  $$(".seg").forEach(f=>f.setAttribute("aria-pressed", String(f.dataset.f===key)));
+}
+$("#filters").addEventListener("click",e=>{
+  const b=e.target.closest(".seg"); if(b) applyFilter(b.dataset.f);
+});
+$("#resetFilter").addEventListener("click",()=>applyFilter("all"));
+
+// 作品详情展开
+$("#worksList").addEventListener("click",e=>{
+  const btn=e.target.closest(".work-more"); if(!btn) return;
+  const card=btn.closest(".work"), open=card.classList.toggle("open");
+  btn.setAttribute("aria-expanded", String(open));
+  btn.textContent = open?t("works.less"):t("works.more");
+});
+
+// 复制 + snackbar
+let toastTimer;
+function toast(msg,err){
+  const el=$("#toast");
+  el.textContent=msg;
+  el.classList.toggle("err",!!err);
+  el.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>el.classList.remove("show"),2400);
+}
+async function copyText(text,label){
+  try{
+    if(navigator.clipboard && window.isSecureContext){ await navigator.clipboard.writeText(text); }
+    else{
+      const ta=document.createElement("textarea");
+      ta.value=text; ta.setAttribute("readonly",""); ta.style.cssText="position:fixed;opacity:0;pointer-events:none";
+      document.body.appendChild(ta); ta.select();
+      const done=document.execCommand("copy"); ta.remove();
+      if(!done) throw new Error("execCommand");
+    }
+    toast(label+" "+t("f.copied"));
+  }catch(err){ toast(t("f.fail"), true); }
+}
+$("#copyMail").addEventListener("click",()=>copyText(MAIL,t("f.mail")));
+$("#socials").addEventListener("click",e=>{
+  const b=e.target.closest(".tile[data-copy]");
+  if(b) copyText(b.dataset.copy, b.querySelector(".tile-net").textContent);
+});
+
+// 语言切换
+(function(){
+  const btn=$("#langBtn");
+  btn.addEventListener("click",()=>{
+    LANG = LANG==="zh" ? "en" : "zh";
+    btn.textContent = LANG==="zh" ? "EN" : "中";
+    btn.setAttribute("aria-pressed", String(LANG==="en"));
+    try{localStorage.setItem("homepage-lang",LANG);}catch(e){}
+    applyI18n();
+    toast(t("f.lang"));
+  });
+  try{ const s=localStorage.getItem("homepage-lang"); if(s==="en"){LANG="en";btn.textContent="中";btn.setAttribute("aria-pressed","true");} }catch(e){}
+})();
+
+// 深浅色切换
+(function theme(){
+  const btn=$("#themeBtn"), root=document.documentElement;
+  const saved=(()=>{ try{return localStorage.getItem("homepage-theme");}catch(e){return null;} })();
+  const prefersDark = matchMedia("(prefers-color-scheme: dark)").matches;
+  const initial = saved || (prefersDark?"dark":"light");
+  function set(mode,announce){
+    root.setAttribute("data-theme",mode);
+    btn.textContent = mode==="dark"?"◑":"◐";
+    btn.setAttribute("aria-pressed", String(mode==="dark"));
+    if(announce){ try{localStorage.setItem("homepage-theme",mode);}catch(e){} toast(mode==="dark"?t("f.dark"):t("f.light")); }
+  }
+  set(initial,false);
+  btn.addEventListener("click",()=>set(root.getAttribute("data-theme")==="dark"?"light":"dark",true));
+})();
+
+/* SECTION: boot */
+applyI18n();
+</script>
+</body>
+</html>
