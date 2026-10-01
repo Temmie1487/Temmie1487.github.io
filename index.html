@@ -550,15 +550,15 @@ const SKILLS = [
     {name:"HTML · CSS · JS",desc:{zh:"你现在看的这个页面就是手写成果：单文件、双语、零依赖。",en:"This very page is the proof: single file, bilingual, zero dependencies."},meta:{zh:"本页面",en:"This page"}}
   ]},
   {group:{zh:"兴趣爱好（不完全）",en:"Hobbies (incomplete list)"},items:[
-    {name:"摄影",desc:{zh:"喜欢拍照，记录光影和日常。",en:"Photography — light and everyday scenes."},meta:{zh:"相机",en:"Camera"}},
-    {name:"剪辑",desc:{zh:"视频剪辑：从粗剪、节奏到字幕一条龙。",en:"Video editing: rough cut, pacing, subtitles — the whole pipeline."},meta:{zh:"后期制作",en:"Post-production"}},
-    {name:"调色",desc:{zh:"色彩还原与风格化调色，LUT 自己也在攒。",en:"Color correction and grading; building my own LUT collection."},meta:{zh:"色彩",en:"Color"}},
-    {name:"嵌入式开发",desc:{zh:"ESP32、读卡器、传感器，从接线到写固件一整套都自己来。",en:"ESP32, readers, sensors — wiring to firmware, all hands-on."},meta:{zh:"nfc-door-lock",en:"nfc-door-lock"}},
-    {name:"折腾电脑",desc:{zh:"装机、调系统、试新工具，折腾本身就是乐趣。",en:"Building PCs, tuning systems, trying new tools — the tinkering is the point."},meta:{zh:"Windows 重度用户",en:"Power Windows user"}},
-    {name:"音乐发烧",desc:{zh:"听歌挑剔设备和声音素质。",en:"Audiophile — particular about gear and sound quality."},meta:{zh:"Hi-Fi",en:"Hi-Fi"}},
-    {name:"神秘博士",desc:{zh:"剧粉，看老牌英剧是固定放松项目。",en:"Doctor Who fan — a regular way to unwind."},meta:{zh:"Doctor Who",en:"Doctor Who"}},
-    {name:"我的世界",desc:{zh:"老玩家，偶尔研究整合包和 Mod 冲突。",en:"Long-time player; modpacks and conflict fixing on the side."},meta:{zh:"Minecraft",en:"Minecraft"}},
-    {name:"彩虹六号",desc:{zh:"爱打战术射击，研究地图和干员很有意思。",en:"Rainbow Six Siege — maps, operators, the tactical loop."},meta:{zh:"R6S",en:"R6S"}}
+    {name:{zh:"摄影",en:"Photography"},desc:{zh:"喜欢拍照，记录光影和日常。",en:"Photography — light and everyday scenes."},meta:{zh:"相机",en:"Camera"}},
+    {name:{zh:"剪辑",en:"Video Editing"},desc:{zh:"视频剪辑：从粗剪、节奏到字幕一条龙。",en:"Video editing: rough cut, pacing, subtitles — the whole pipeline."},meta:{zh:"后期制作",en:"Post-production"}},
+    {name:{zh:"调色",en:"Color Grading"},desc:{zh:"色彩还原与风格化调色，LUT 自己也在攒。",en:"Color correction and grading; building my own LUT collection."},meta:{zh:"色彩",en:"Color"}},
+    {name:{zh:"嵌入式开发",en:"Embedded Dev"},desc:{zh:"ESP32、读卡器、传感器，从接线到写固件一整套都自己来。",en:"ESP32, readers, sensors — wiring to firmware, all hands-on."},meta:{zh:"nfc-door-lock",en:"nfc-door-lock"}},
+    {name:{zh:"折腾电脑",en:"PC Tinkering"},desc:{zh:"装机、调系统、试新工具，折腾本身就是乐趣。",en:"Building PCs, tuning systems, trying new tools — the tinkering is the point."},meta:{zh:"Windows 重度用户",en:"Power Windows user"}},
+    {name:{zh:"音乐发烧",en:"Audiophile"},desc:{zh:"听歌挑剔设备和声音素质。",en:"Audiophile — particular about gear and sound quality."},meta:{zh:"Hi-Fi",en:"Hi-Fi"}},
+    {name:{zh:"神秘博士",en:"Doctor Who"},desc:{zh:"剧粉，看老牌英剧是固定放松项目。",en:"Doctor Who fan — a regular way to unwind."},meta:{zh:"Doctor Who",en:"Doctor Who"}},
+    {name:{zh:"我的世界",en:"Minecraft"},desc:{zh:"老玩家，偶尔研究整合包和 Mod 冲突。",en:"Long-time player; modpacks and conflict fixing on the side."},meta:{zh:"Minecraft",en:"Minecraft"}},
+    {name:{zh:"彩虹六号",en:"Rainbow Six"},desc:{zh:"爱打战术射击，研究地图和干员很有意思。",en:"Rainbow Six Siege — maps, operators, the tactical loop."},meta:{zh:"R6S",en:"R6S"}}
   ]}
 ];
 
@@ -648,7 +648,7 @@ function renderSkills(){
   $("#tagWall").innerHTML = SKILLS.map(g=>{
     total += g.items.length;
     return `<div class="skill-group"><h3>${bi(g.group)}</h3><div class="chips">`+
-      g.items.map(it=>`<button type="button" class="chip" aria-pressed="false" data-skill="${SKILLS.indexOf(g)}|${g.items.indexOf(it)}">${it.name}</button>`).join("")+
+      g.items.map(it=>`<button type="button" class="chip" aria-pressed="false" data-skill="${SKILLS.indexOf(g)}|${g.items.indexOf(it)}">${bi(it.name)}</button>`).join("")+
       `</div></div>`;
   }).join("");
   $("#sdMeta").textContent = LANG==="zh" ? `共 ${total} 项 · 分 ${SKILLS.length} 组` : `${total} skills · ${SKILLS.length} groups`;
@@ -702,29 +702,50 @@ function applyI18n(){
 }
 
 /* SECTION: interactions */
-// 目录：点击更新地址 + 滚动位置驱动高亮（比观察器更贴合实际滚动）
+// 目录：点击即锁定目标高亮（平滑滚动途中不闪烁），滚停/手动滚动后恢复位置跟随
 (function(){
   const links = $$("nav a");
   const secs = $$("main section.sec");
-  const NAV = 64;
-  let cur = "";
+  const JUDGE = 96;                 // 判定线：导航栏下方一点
+  let cur = "", lock = "", settle = 0;
   function paint(id){
     if(id===cur) return;
     cur = id;
     links.forEach(l=>l.setAttribute("aria-current", String(l.getAttribute("href")==="#"+id)));
   }
-  function sync(){
-    const pos = scrollY + NAV + 44;
+  function byPos(){
+    const pos = scrollY + JUDGE;
     let id = "";
     for(const s of secs){ if(s.offsetTop <= pos) id = s.id; }
     if(innerHeight + scrollY >= document.documentElement.scrollHeight - 10) id = "contact";
-    paint(id);
+    return id;
   }
   let ticking = false;
-  addEventListener("scroll",()=>{ if(!ticking){ticking=true;requestAnimationFrame(()=>{sync();ticking=false;});} },{passive:true});
-  addEventListener("resize",sync,{passive:true});
-  links.forEach(a=>a.addEventListener("click",()=>{ history.replaceState(null,"",a.getAttribute("href")); }));
-  sync();
+  addEventListener("scroll",()=>{
+    if(!ticking){ticking=true;requestAnimationFrame(()=>{
+      ticking=false;
+      if(lock){                       // 点击跳转中：等滚动停稳再解锁
+        clearTimeout(settle);
+        settle = setTimeout(()=>{ lock=""; paint(byPos()); }, 140);
+        return;                       // 停稳前高亮保持锁定目标
+      }
+      paint(byPos());
+    });}
+  },{passive:true});
+  addEventListener("wheel",()=>{ lock=""; paint(byPos()); },{passive:true});
+  addEventListener("touchmove",()=>{ lock=""; paint(byPos()); },{passive:true});
+  addEventListener("resize",()=>{ if(!lock) paint(byPos()); },{passive:true});
+  links.forEach(a=>a.addEventListener("click",ev=>{
+    const id = a.getAttribute("href").slice(1);
+    const target = document.getElementById(id);
+    if(!target) return;
+    ev.preventDefault();
+    lock = id; paint(id);            // 立刻锁定并高亮目标
+    history.replaceState(null,"","#"+id);
+    target.scrollIntoView({behavior:"smooth",block:"start"});
+    setTimeout(()=>{ if(lock===id){lock="";paint(byPos());} }, 1200); // 兜底解锁
+  }));
+  paint(byPos());
 })();
 if ("IntersectionObserver" in window){
   const rev = new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){e.target.classList.add("in");rev.unobserve(e.target);} }),{threshold:.1});
@@ -754,7 +775,7 @@ $("#tagWall").addEventListener("click",e=>{
   const item=SKILLS[gi].items[ii];
   const box=$("#skillDetail");
   box.querySelector(".label").textContent = bi(SKILLS[gi].group);
-  box.querySelector("h4").textContent = item.name;
+  box.querySelector("h4").textContent = bi(item.name);
   $("#sdBody").textContent = bi(item.desc);
   $("#sdMeta").textContent = bi(item.meta);
 });
