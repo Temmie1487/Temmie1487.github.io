@@ -325,8 +325,6 @@ button{font-family:inherit}
 }
 .mini-btn:hover{background:var(--surface-3)}
 .contact-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-.stagger{opacity:0;transform:translateY(12px);transition:opacity .45s ease,transform .45s ease}
-.in .stagger{opacity:1;transform:none}
 .tile:active{transform:scale(.98)}
 
 /* SECTION: footer + toast + motion */
@@ -341,8 +339,20 @@ footer .wrap{display:flex;justify-content:center;font-size:12.5px;letter-spacing
 }
 #toast.show{opacity:1;transform:translate(-50%,0)}
 #toast.err{background:var(--error);color:#fff}
-.reveal{opacity:0;transform:translateY(22px);transition:opacity .65s ease,transform .65s ease}
-.reveal.in{opacity:1;transform:none}
+/* Claude 风入场：失焦软化 + 上浮，元素按 --d 错峰出现 */
+@keyframes settle{
+  from{opacity:0;transform:translateY(16px);filter:blur(7px)}
+  to{opacity:1;transform:none;filter:blur(0)}
+}
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:none}
+}
+.hero [data-settle]{opacity:0;animation:settle .9s cubic-bezier(.22,1,.36,1) forwards;animation-delay:var(--d,0s)}
+.reveal{opacity:0}
+.reveal.in{opacity:1;transform:none;animation:fadeUp .75s cubic-bezier(.22,1,.36,1)}
+.stagger{opacity:0}
+.in .stagger{opacity:1;transform:none;animation:fadeUp .6s cubic-bezier(.22,1,.36,1);animation-delay:var(--sd,0s)}
 
 /* SECTION: responsive */
 @media (max-width:980px){
@@ -369,14 +379,14 @@ footer .wrap{display:flex;justify-content:center;font-size:12.5px;letter-spacing
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *{transition:none!important;animation:none!important}
-  .reveal{opacity:1;transform:none}
-  .stagger{opacity:1;transform:none}
+  .hero [data-settle]{opacity:1;filter:none;transform:none}
+  .reveal,.stagger{opacity:1;transform:none}
 }
 /* SECTION: print */
 @media print{
   .appbar,.icon-btn,.lang-btn,.mini-btn,.contact-actions{display:none!important}
   body{background:#fff;color:#000}
-  .stagger{opacity:1;transform:none}
+  .hero [data-settle],.reveal,.stagger{opacity:1;transform:none;filter:none;animation:none}
   .sec{padding:16px 0;break-inside:avoid}
 }
 </style>
@@ -404,16 +414,16 @@ footer .wrap{display:flex;justify-content:center;font-size:12.5px;letter-spacing
 <section class="hero" id="top">
   <div class="wrap hero-grid">
     <div>
-      <span class="pill"><span class="dot"></span><span data-i18n="hero.pill">Temmie什么都会一点</span></span>
-      <h1>Temmie<em>1487</em></h1>
-      <p class="sub">Student Developer</p>
-      <p class="lede" data-i18n="hero.lede">写 C# 桌面应用，用 Godot 做游戏，也在 ESP32 上折腾硬件——<b>什么都会一点</b>，有趣就想上手。我的世界与彩虹六号常驻玩家。</p>
-      <div class="hero-actions">
+      <span class="pill" data-settle style="--d:.05s"><span class="dot"></span><span data-i18n="hero.pill">Temmie什么都会一点</span></span>
+      <h1 data-settle style="--d:.18s">Temmie<em>1487</em></h1>
+      <p class="sub" data-settle style="--d:.3s">Student Developer</p>
+      <p class="lede" data-i18n="hero.lede" data-settle style="--d:.42s">写 C# 桌面应用，用 Godot 做游戏，也在 ESP32 上折腾硬件——<b>什么都会一点</b>，有趣就想上手。我的世界与彩虹六号常驻玩家。</p>
+      <div class="hero-actions" data-settle style="--d:.56s">
         <a class="btn filled" href="#works" data-primary-action="查看作品" data-i18n="hero.ctaWorks">查看作品</a>
         <a class="btn outlined" href="#contact" data-i18n="hero.ctaContact">联系我</a>
       </div>
     </div>
-    <aside class="card profile-card">
+    <aside class="card profile-card" data-settle style="--d:.7s">
       <div class="profile-head">
         <span class="avatar-lg" id="avatarLg">T</span>
         <div>
@@ -458,7 +468,8 @@ footer .wrap{display:flex;justify-content:center;font-size:12.5px;letter-spacing
             <div class="tl-item"><span class="tl-yr">2026.08</span><span class="tl-tx" data-i18n="about.tl1">nfc-door-lock · ESP32 智能门禁</span></div>
             <div class="tl-item"><span class="tl-yr">2026.02</span><span class="tl-tx" data-i18n="about.tl2">WinTools · WPF 系统管理工具开源</span></div>
             <div class="tl-item"><span class="tl-yr">2024.07</span><span class="tl-tx" data-i18n="about.tl3">注册 GitHub，开始公开写代码</span></div>
-            <div class="tl-item"><span class="tl-yr">2021.02</span><span class="tl-tx" data-i18n="about.tl4">开始在 B站 投稿做 UP 主，现为 Lv6 老资历</span></div>
+            <div class="tl-item"><span class="tl-yr">2021.02</span><span class="tl-tx" data-i18n="about.tl4">开始做 B站 UP 主，投稿发视频</span></div>
+            <div class="tl-item"><span class="tl-yr">2020.11</span><span class="tl-tx" data-i18n="about.tl5">注册 B站，bilibili 干杯 🍻 · 现为 Lv6</span></div>
           </div>
         </div>
       </aside>
@@ -605,7 +616,7 @@ const T = {
     "about.p2":"摄影和影像后期是我的日常产出，折腾电脑算低血压治疗方式；闲下来一般泡在《我的世界》或者《彩虹六号》里。",
     "about.p3":"学习路径很直接：感兴趣 → 查资料 → 不会就问AI → 做出来。WinTools 和 nfc-door-lock 都是这么完成的，代码全在 GitHub 上，点作品里的链接就能看。",
     "about.statsTitle":"数据一览","about.s1":"公开仓库","about.s2":"Stars","about.s3":"加入 GitHub",
-    "about.tlTitle":"经历","about.tl1":"nfc-door-lock · ESP32 智能门禁","about.tl2":"WinTools · WPF 系统管理工具开源","about.tl3":"注册 GitHub，开始公开写代码","about.tl4":"开始在 B站 投稿做 UP 主，现为 Lv6 老资历",
+    "about.tlTitle":"经历","about.tl1":"nfc-door-lock · ESP32 智能门禁","about.tl2":"WinTools · WPF 系统管理工具开源","about.tl3":"注册 GitHub，开始公开写代码","about.tl4":"开始做 B站 UP 主，投稿发视频","about.tl5":"注册 B站，bilibili 干杯 🍻 · 现为 Lv6",
     "skills.title":"能力","skills.hint":"点选任一项","skills.detailTitle":"能力说明","skills.detailBody":"这里展开该项的具体说明，以及我在哪些项目里用过它。",
     "works.title":"作品集","works.empty":"这一栏目下暂时没有收录","works.reset":"查看全部",
     "works.repoBtn":"查看仓库",
@@ -623,7 +634,7 @@ const T = {
     "about.p2":"Photography and video post-production are my usual output; tinkering with PCs doubles as low-blood-pressure therapy. Free evenings go to Minecraft or Rainbow Six.",
     "about.p3":"My learning loop is simple: curious → search → ask AI when stuck → build. WinTools and nfc-door-lock both shipped that way — the code is on GitHub, one click from the Works section.",
     "about.statsTitle":"At a glance","about.s1":"Public repos","about.s2":"Stars","about.s3":"Joined GitHub",
-    "about.tlTitle":"Timeline","about.tl1":"nfc-door-lock · ESP32 smart lock","about.tl2":"WinTools · WPF system manager open-sourced","about.tl3":"Joined GitHub, started coding in public","about.tl4":"Started posting on Bilibili as a creator, now a Lv6 veteran",
+    "about.tlTitle":"Timeline","about.tl1":"nfc-door-lock · ESP32 smart lock","about.tl2":"WinTools · WPF system manager open-sourced","about.tl3":"Joined GitHub, started coding in public","about.tl4":"Started posting on Bilibili as a creator","about.tl5":"Joined Bilibili — cheers! 🍻 · now Lv6",
     "skills.title":"Skills","skills.hint":"Pick any skill","skills.detailTitle":"Details","skills.detailBody":"Each skill expands here, with the projects where I actually used it.",
     "works.title":"Works","works.empty":"Nothing in this category yet","works.reset":"Show all",
     "works.repoBtn":"View repo",
@@ -697,7 +708,7 @@ function renderSocials(){
     const inner = `<span class="tile-icon">${s.icon}</span>
       <span class="tile-text"><span class="tile-net">${s.net}</span><span class="tile-handle">${s.handle}</span></span>
       <span class="tile-arrow">${s.url?"→":"⧉"}</span>`;
-    const delay = `style="transition-delay:${i*90}ms"`;
+    const delay = `style="--sd:${i*90}ms"`;
     return s.url
       ? `<a class="tile stagger" ${delay} href="${s.url}" target="_blank" rel="noopener">${inner}</a>`
       : `<button type="button" class="tile stagger" ${delay} data-copy="${s.copy}">${inner}</button>`;
@@ -834,18 +845,23 @@ $("#socials").addEventListener("click",e=>{
   if(b) copyText(b.dataset.copy, b.querySelector(".tile-net").textContent);
 });
 
-// 语言切换
+// 语言：URL ?lang= 优先，其次浏览器记录；切换时同步地址栏，方便分享指定语言链接
 (function(){
   const btn=$("#langBtn");
+  const q=new URLSearchParams(location.search).get("lang");
+  if(q==="en"||q==="zh") LANG=q;
+  else{ try{ const s=localStorage.getItem("homepage-lang"); if(s==="en")LANG="en"; }catch(e){} }
+  function paint(){ btn.textContent = LANG==="zh" ? "EN" : "中"; btn.setAttribute("aria-pressed", String(LANG==="en")); }
+  paint();
   btn.addEventListener("click",()=>{
     LANG = LANG==="zh" ? "en" : "zh";
-    btn.textContent = LANG==="zh" ? "EN" : "中";
-    btn.setAttribute("aria-pressed", String(LANG==="en"));
+    paint();
     try{localStorage.setItem("homepage-lang",LANG);}catch(e){}
+    const u=new URL(location.href); u.searchParams.set("lang",LANG);
+    history.replaceState(null,"",u);
     applyI18n();
     toast(t("f.lang"));
   });
-  try{ const s=localStorage.getItem("homepage-lang"); if(s==="en"){LANG="en";btn.textContent="中";btn.setAttribute("aria-pressed","true");} }catch(e){}
 })();
 
 // 深浅色切换
