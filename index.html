@@ -431,7 +431,7 @@ footer .wrap{display:flex;justify-content:center;font-size:12.5px;letter-spacing
       <span class="pill" data-settle style="--d:.05s"><span class="dot"></span><span data-i18n="hero.pill">Temmie什么都会一点</span></span>
       <h1 data-settle style="--d:.18s">Temmie<em>1487</em></h1>
       <p class="sub" data-settle style="--d:.3s">Student Developer</p>
-      <p class="lede" data-i18n="hero.lede" data-settle style="--d:.42s">写 C# 桌面应用，用 Godot 做游戏，也在 ESP32 上折腾硬件——<b>什么都会一点</b>，有趣就想上手。我的世界与彩虹六号常驻玩家。</p>
+      <p class="lede" data-i18n="hero.lede" data-settle style="--d:.42s">写 C# 桌面应用，写 GDScript，也在 ESP32 上折腾硬件——<b>什么都会一点</b>，有趣就想上手。常玩《我的世界》与《彩虹六号》。</p>
       <div class="hero-actions" data-settle style="--d:.56s">
         <a class="btn filled" href="#works" data-primary-action="查看作品" data-i18n="hero.ctaWorks">查看作品</a>
         <a class="btn outlined" href="#contact" data-i18n="hero.ctaContact">联系我</a>
@@ -446,7 +446,7 @@ footer .wrap{display:flex;justify-content:center;font-size:12.5px;letter-spacing
         </div>
       </div>
       <div class="d-item"><span class="k" data-i18n="profile.k1">平台</span><span class="v">Windows · GitHub</span></div>
-      <div class="d-item"><span class="k" data-i18n="profile.k2">方向</span><span class="v" data-i18n="profile.v2">桌面应用 · 嵌入式 · 游戏</span></div>
+      <div class="d-item"><span class="k" data-i18n="profile.k2">方向</span><span class="v" data-i18n="profile.v2">桌面应用 · 嵌入式 · 网页</span></div>
       <div class="d-item"><span class="k" data-i18n="profile.k3">语言</span><span class="v">C# · GDScript · C++</span></div>
       <div class="d-item"><span class="k" data-i18n="profile.k4">爱好</span><span class="v" data-i18n="profile.v4">摄影 · 后期 · 开发</span></div>
       <span class="badge" data-i18n="profile.badge">Since 2024 · GitHub</span>
@@ -463,7 +463,7 @@ footer .wrap{display:flex;justify-content:center;font-size:12.5px;letter-spacing
       <div class="card">
         <div class="prose">
           <p data-i18n="about.p1">我是 Temmie，现在在读高中。这页面上的东西基本都是课余做出来的：C# 桌面工具、ESP32 固件，还有这个单文件网页。</p>
-          <p data-i18n="about.p2">摄影和影像后期是我的日常产出，折腾电脑算低血压治疗方式；闲下来一般泡在《我的世界》或者《彩虹六号》里。</p>
+          <p data-i18n="about.p2">玩摄影和影像后期，折腾电脑算低血压治疗方式；闲下来一般泡在《我的世界》或者《彩虹六号》里。</p>
           <p data-i18n="about.p3">学习路径很直接：感兴趣 → 查资料 → 不会就问AI → 做出来。WinTools 和 nfc-door-lock 都是这么完成的，代码全在 GitHub 上，点作品里的链接就能看。</p>
         </div>
       </div>
@@ -538,7 +538,7 @@ footer .wrap{display:flex;justify-content:center;font-size:12.5px;letter-spacing
           <a id="mailtoLink" href="mailto:MIB12345678902020@outlook.com">MIB12345678902020@outlook.com</a>
           <button class="mini-btn" id="copyMail" type="button" data-primary-action="复制邮箱" data-i18n="contact.copy">复制</button>
         </p>
-        <p style="margin:0;color:var(--on-surface-variant);font-size:14px" data-i18n="contact.desc">合作、请教、闲聊都欢迎，看到就会回。</p>
+        <p style="margin:0;color:var(--on-surface-variant);font-size:14px" data-i18n="contact.desc">合作、请教、闲聊都欢迎。</p>
         <div class="contact-actions" style="margin-top:18px">
           <a class="btn tonal" style="height:42px;padding:0 20px;font-size:13.5px" id="mailtoBtn" href="mailto:MIB12345678902020@outlook.com" data-i18n="contact.sendMail">发邮件</a>
         </div>
@@ -564,21 +564,21 @@ const MAIL = "MIB12345678902020@outlook.com";
 
 const SKILLS = [
   {group:{zh:"编程语言",en:"Languages"},items:[
-    {name:"C#",desc:{zh:"主力语言，走 .NET 9 生态。独立完成 WinTools 整套开发：WPF 界面分层、WPF-UI 组件与 Mica 云母效果、异步处理与资源释放都按能长期维护的标准写。",en:"Main language, .NET 9 ecosystem. Built WinTools end to end: layered WPF UI, WPF-UI components with Mica effects, async and disposal written to a maintainable standard."},meta:{zh:"WinTools · C# 占仓库 98.2%",en:"WinTools · 98.2% of repo"}},
-    {name:"GDScript",desc:{zh:"Godot 引擎的脚本语言。用来搭玩法逻辑、验证原型：先让机制跑通，再谈打磨。",en:"Godot's scripting language. Used for gameplay logic and prototypes — make the mechanic run first, polish after."},meta:{zh:"Godot Engine",en:"Godot Engine"}},
+    {name:"C#",desc:{zh:"主力语言，走 .NET 生态。独立完成 WinTools 整套开发：WPF 界面分层、WPF-UI 组件与 Mica 云母效果。",en:"Main language, .NET ecosystem. Built WinTools end to end: layered WPF UI, WPF-UI components with Mica effects."},meta:{zh:"WinTools · C# 占仓库 98.2%",en:"WinTools · 98.2% of repo"}},
+    {name:"GDScript",desc:{zh:"Godot 引擎的脚本语言，用来写游戏逻辑与原型。",en:"Godot's scripting language, used for gameplay logic and prototypes."},meta:{zh:"Godot Engine",en:"Godot Engine"}},
     {name:"C++",desc:{zh:"嵌入式方向。为 ESP32 手写 NFC 门禁固件：PN532 通信、状态机调度、传感器消抖与安全超时。",en:"Embedded side. Hand-written ESP32 firmware for the NFC lock: PN532 comms, state-machine scheduling, debounce and safety timeout."},meta:{zh:"nfc-door-lock",en:"nfc-door-lock"}},
     {name:"HTML · CSS · JS",desc:{zh:"你现在看的这一页就是成果本身：单文件零依赖，双语、主题、滚动导航全部手写，没有一行框架代码。",en:"This very page is the proof: one file, zero dependencies — bilingual, theming and scroll-spy all hand-written, no framework."},meta:{zh:"本页面",en:"This page"}}
   ]},
   {group:{zh:"兴趣爱好（不完全）",en:"Hobbies (incomplete list)"},items:[
     {name:{zh:"摄影",en:"Photography"},desc:{zh:"喜欢拍照，记录光影和日常。",en:"Photography — light and everyday scenes."},meta:{zh:"相机",en:"Camera"}},
     {name:{zh:"剪辑",en:"Video Editing"},desc:{zh:"视频剪辑：从粗剪、节奏到字幕一条龙。",en:"Video editing: rough cut, pacing, subtitles — the whole pipeline."},meta:{zh:"后期制作",en:"Post-production"}},
-    {name:{zh:"调色",en:"Color Grading"},desc:{zh:"色彩还原与风格化调色，LUT 自己也在攒。",en:"Color correction and grading; building my own LUT collection."},meta:{zh:"色彩",en:"Color"}},
+    {name:{zh:"调色",en:"Color Grading"},desc:{zh:"色彩还原与风格化调色。",en:"Color correction and stylized grading."},meta:{zh:"色彩",en:"Color"}},
     {name:{zh:"嵌入式开发",en:"Embedded Dev"},desc:{zh:"ESP32、读卡器、传感器，从接线到写固件一整套都自己来。",en:"ESP32, readers, sensors — wiring to firmware, all hands-on."},meta:{zh:"nfc-door-lock",en:"nfc-door-lock"}},
-    {name:{zh:"折腾电脑",en:"PC Tinkering"},desc:{zh:"装机、调系统、试新工具，折腾本身就是乐趣。",en:"Building PCs, tuning systems, trying new tools — the tinkering is the point."},meta:{zh:"Windows 重度用户",en:"Power Windows user"}},
+    {name:{zh:"折腾电脑",en:"PC Tinkering"},desc:{zh:"装机、调系统、试新工具。",en:"Building PCs, tuning systems, trying new tools."},meta:{zh:"Windows 重度用户",en:"Power Windows user"}},
     {name:{zh:"音乐发烧",en:"Audiophile"},desc:{zh:"听歌挑剔设备和声音素质。",en:"Audiophile — particular about gear and sound quality."},meta:{zh:"Hi-Fi",en:"Hi-Fi"}},
-    {name:{zh:"神秘博士",en:"Doctor Who"},desc:{zh:"剧粉，看老牌英剧是固定放松项目。",en:"Doctor Who fan — a regular way to unwind."},meta:{zh:"Doctor Who",en:"Doctor Who"}},
+    {name:{zh:"神秘博士",en:"Doctor Who"},desc:{zh:"神秘博士剧粉。",en:"Doctor Who fan."},meta:{zh:"Doctor Who",en:"Doctor Who"}},
     {name:{zh:"我的世界",en:"Minecraft"},desc:{zh:"老玩家，偶尔研究整合包和 Mod 冲突。",en:"Long-time player; modpacks and conflict fixing on the side."},meta:{zh:"Minecraft",en:"Minecraft"}},
-    {name:{zh:"彩虹六号",en:"Rainbow Six"},desc:{zh:"爱打战术射击，研究地图和干员很有意思。",en:"Rainbow Six Siege — maps, operators, the tactical loop."},meta:{zh:"R6S",en:"R6S"}}
+    {name:{zh:"彩虹六号",en:"Rainbow Six"},desc:{zh:"爱打战术射击，喜欢研究战术和地图。",en:"Tactical-shooter player — I love studying tactics and maps."},meta:{zh:"R6S",en:"R6S"}}
   ]}
 ];
 
@@ -622,37 +622,37 @@ const T = {
   zh:{
     "nav.about":"关于","nav.skills":"能力","nav.works":"作品","nav.contact":"联系",
     "hero.pill":"Temmie什么都会一点",
-    "hero.lede":'写 C# 桌面应用，用 Godot 做游戏，也在 ESP32 上折腾硬件——<b>什么都会一点</b>，有趣就想上手。我的世界与彩虹六号常驻玩家。',
+    "hero.lede":'写 C# 桌面应用，写 GDScript，也在 ESP32 上折腾硬件——<b>什么都会一点</b>，有趣就想上手。常玩《我的世界》与《彩虹六号》。',
     "hero.ctaWorks":"查看作品","hero.ctaContact":"联系我",
-    "profile.title":"学生开发者 / 高中生","profile.k1":"平台","profile.k2":"方向","profile.v2":"桌面应用 · 嵌入式 · 游戏","profile.k3":"语言","profile.k4":"爱好","profile.v4":"摄影 · 后期 · 开发","profile.badge":"Since 2024 · GitHub",
+    "profile.title":"学生开发者 / 高中生","profile.k1":"平台","profile.k2":"方向","profile.v2":"桌面应用 · 嵌入式 · 网页","profile.k3":"语言","profile.k4":"爱好","profile.v4":"摄影 · 后期 · 开发","profile.badge":"Since 2024 · GitHub",
     "about.title":"关于我",
     "about.p1":"我是 Temmie，现在在读高中。这页面上的东西基本都是课余做出来的：C# 桌面工具、ESP32 固件，还有这个单文件网页。",
-    "about.p2":"摄影和影像后期是我的日常产出，折腾电脑算低血压治疗方式；闲下来一般泡在《我的世界》或者《彩虹六号》里。",
+    "about.p2":"玩摄影和影像后期，折腾电脑算低血压治疗方式；闲下来一般泡在《我的世界》或者《彩虹六号》里。",
     "about.p3":"学习路径很直接：感兴趣 → 查资料 → 不会就问AI → 做出来。WinTools 和 nfc-door-lock 都是这么完成的，代码全在 GitHub 上，点作品里的链接就能看。",
     "about.statsTitle":"数据一览","about.s1":"公开仓库","about.s2":"Stars","about.s3":"加入 GitHub",
     "about.tlTitle":"经历","about.tl1":"nfc-door-lock · ESP32 智能门禁","about.tl2":"WinTools · WPF 系统管理工具开源","about.tl3":"注册 GitHub，开始公开写代码","about.tl4":"开始做 B站 UP 主，投稿发视频","about.tl5":"注册 B站，bilibili 干杯 🍻 · 现为 Lv6",
     "skills.title":"能力","skills.hint":"点选任一项","skills.detailTitle":"能力说明","skills.detailBody":"这里展开该项的具体说明，以及我在哪些项目里用过它。",
     "works.title":"作品集","works.empty":"这一栏目下暂时没有收录","works.reset":"查看全部",
     "works.repoBtn":"查看仓库",
-    "contact.title":"联系","contact.pill":"技术交流与闲聊都欢迎","contact.desc":"合作、请教、闲聊都欢迎，看到就会回。","contact.sendMail":"发邮件","contact.emailTitle":"邮件","contact.copy":"复制",
+    "contact.title":"联系","contact.pill":"技术交流与闲聊都欢迎","contact.desc":"合作、请教、闲聊都欢迎。","contact.sendMail":"发邮件","contact.emailTitle":"邮件","contact.copy":"复制",
     "f.copied":"已复制","f.fail":"复制失败，请手动选中文字","f.dark":"已切换到深色","f.light":"已切换到浅色","f.lang":"已切换到中文","f.mail":"邮箱","f.qq":"QQ"
   },
   en:{
     "nav.about":"About","nav.skills":"Skills","nav.works":"Works","nav.contact":"Contact",
     "hero.pill":"Temmie does a bit of everything",
-    "hero.lede":'I build C# desktop apps, make games in Godot, and tinker with ESP32 hardware. <b>A bit of everything</b> — if it\u2019s fun, I\u2019ll try it. Regular Minecraft & Rainbow Six player.',
+    "hero.lede":'I build C# desktop apps, script in GDScript, and tinker with ESP32 hardware. <b>A bit of everything</b> — if it\u2019s fun, I\u2019ll try it. I mostly play Minecraft and Rainbow Six.',
     "hero.ctaWorks":"See works","hero.ctaContact":"Contact me",
-    "profile.title":"Student developer","profile.k1":"Platform","profile.k2":"Focus","profile.v2":"Desktop · Embedded · Games","profile.k3":"Languages","profile.k4":"Interests","profile.v4":"Photo · Post · Dev","profile.badge":"Since 2024 · GitHub",
+    "profile.title":"Student developer","profile.k1":"Platform","profile.k2":"Focus","profile.v2":"Desktop · Embedded · Web","profile.k3":"Languages","profile.k4":"Interests","profile.v4":"Photo · Post · Dev","profile.badge":"Since 2024 · GitHub",
     "about.title":"About me",
     "about.p1":"I'm Temmie, a high school student. Most of what you see here is after-class work: C# desktop tools, ESP32 firmware, and this single-file website.",
-    "about.p2":"Photography and video post-production are my usual output; tinkering with PCs doubles as low-blood-pressure therapy. Free evenings go to Minecraft or Rainbow Six.",
+    "about.p2":"Photography and video post-production are my regular hobbies; tinkering with PCs doubles as low-blood-pressure therapy. Free evenings go to Minecraft or Rainbow Six.",
     "about.p3":"My learning loop is simple: curious → search → ask AI when stuck → build. WinTools and nfc-door-lock both shipped that way — the code is on GitHub, one click from the Works section.",
     "about.statsTitle":"At a glance","about.s1":"Public repos","about.s2":"Stars","about.s3":"Joined GitHub",
     "about.tlTitle":"Timeline","about.tl1":"nfc-door-lock · ESP32 smart lock","about.tl2":"WinTools · WPF system manager open-sourced","about.tl3":"Joined GitHub, started coding in public","about.tl4":"Started posting on Bilibili as a creator","about.tl5":"Joined Bilibili — cheers! 🍻 · now Lv6",
     "skills.title":"Skills","skills.hint":"Pick any skill","skills.detailTitle":"Details","skills.detailBody":"Each skill expands here, with the projects where I actually used it.",
     "works.title":"Works","works.empty":"Nothing in this category yet","works.reset":"Show all",
     "works.repoBtn":"View repo",
-    "contact.title":"Contact","contact.pill":"Talk tech or just chat","contact.desc":"Collabs, questions, random chat — I reply when I see it.","contact.sendMail":"Send email","contact.emailTitle":"Email","contact.copy":"Copy",
+    "contact.title":"Contact","contact.pill":"Talk tech or just chat","contact.desc":"Collabs, questions, random chat — all welcome.","contact.sendMail":"Send email","contact.emailTitle":"Email","contact.copy":"Copy",
     "f.copied":"copied","f.fail":"Copy failed, select the text manually","f.dark":"Dark mode on","f.light":"Light mode on","f.lang":"Switched to English","f.mail":"Email","f.qq":"QQ"
   }
 };
