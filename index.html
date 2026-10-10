@@ -5,9 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Temmie1487 · 个人主页 / Homepage</title>
 <meta name="description" content="Temmie1487 的个人主页 —— C# / GDScript / ESP32，中英双语单文件静态页，可部署到 GitHub Pages。">
+<script>
+/* SECTION: theme-preinject 首绘前定色：本地记录优先，其次系统偏好，避免暗色设备先白后黑 */
+(function(){
+  var d=null;
+  try{ d=localStorage.getItem("homepage-theme"); }catch(e){}
+  if(d!=="dark"&&d!=="light"){
+    d=(window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches)?"dark":"light";
+  }
+  document.documentElement.setAttribute("data-theme",d);
+})();
+</script>
 <style>
 /* SECTION: m3 tokens */
 :root{
+  color-scheme:light;
   --primary:#5b5bd6;
   --on-primary:#ffffff;
   --primary-container:#e0e0ff;
@@ -35,6 +47,7 @@
   --nav-h:64px;
 }
 html[data-theme="dark"]{
+  color-scheme:dark;
   --primary:#c0c0ff;
   --on-primary:#2a2a8f;
   --primary-container:#4242a0;
